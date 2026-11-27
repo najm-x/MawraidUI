@@ -1,0 +1,9 @@
+{
+    "$schema": "https://openapi.vercel.sh/vercel.json",
+    "rewrites": [
+        {
+            "source": "/api/:path*",
+            "destination": "https://mawraid-git-769853937937.europe-west1.run.app/api/:path*"
+        }
+    ]
+}
