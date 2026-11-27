@@ -34,7 +34,7 @@ export function Forgot({ go }) {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 py-8 px-4 sm:px-6 flex flex-col justify-between">
+    <div className="min-h-screen bg-[#F9FAFB] dga-canvas-grid py-8 px-4 sm:px-6 flex flex-col justify-between">
       <div className="max-w-md w-full mx-auto">
         <div className="flex items-center justify-between pb-6 mb-2">
           <div className="cursor-pointer" onClick={() => go('home')}>
@@ -43,20 +43,20 @@ export function Forgot({ go }) {
           <BackBtn onClick={() => go('login')} label="تسجيل الدخول" />
         </div>
 
-        <div className="bg-white rounded-3xl border border-slate-200 shadow-xl p-6 sm:p-8 fade-in text-center">
-          <div className="w-14 h-14 mx-auto rounded-2xl bg-amber-50 text-amber-700 flex items-center justify-center mb-4">
-            <Icons.Lock className="w-7 h-7" />
+        <div className="bg-white rounded-[16px] border border-[#E5E7EB] border-t-4 border-t-[#DBA102] shadow-card p-6 sm:p-8 fade-in text-right">
+          <div className="w-12 h-12 rounded-[8px] bg-[#FFFAEB] border border-[#FEDF89] text-[#B54708] flex items-center justify-center mb-4">
+            <Icons.Lock className="w-6 h-6" />
           </div>
 
-          <h1 className="text-2xl font-black text-slate-900 mb-1">استعادة كلمة المرور</h1>
-          <p className="text-xs text-slate-500 mb-6">
+          <h1 className="text-2xl font-bold text-[#1F2A37] mb-1.5">استعادة كلمة المرور</h1>
+          <p className="text-xs sm:text-sm text-[#6C737F] mb-6 leading-relaxed">
             أدخل رقم هاتفك المسجل لاستلام رمز استعادة الحساب
           </p>
 
           <ErrorBanner err={err} />
           {info && <InfoBanner>{info}</InfoBanner>}
 
-          <form onSubmit={submit} className="space-y-4 text-right">
+          <form onSubmit={submit} className="space-y-4">
             <div>
               <Label req htmlFor="forgotPhone">رقم الجوال المسجل في المنصة</Label>
               <PhoneInput value={phone} onChange={setPhone} error={!!err} id="forgotPhone" />
@@ -75,23 +75,23 @@ export function Forgot({ go }) {
             </PrimaryBtn>
           </form>
 
-          <div className="mt-6 pt-4 border-t border-slate-100 text-center text-xs text-slate-500">
+          <div className="mt-6 pt-4 border-t border-[#E5E7EB] text-center text-xs text-[#6C737F]">
             تذكرت كلمة المرور؟{' '}
-            <button onClick={() => go('login')} className="font-bold text-mawarid-700 hover:underline cursor-pointer">
+            <button onClick={() => go('login')} className="font-semibold text-[#1B8354] hover:underline cursor-pointer">
               العودة لتسجيل الدخول
             </button>
           </div>
         </div>
       </div>
 
-      <div className="text-center text-[11px] text-slate-400 py-4">
+      <div className="text-center text-[11px] text-[#6C737F] py-4">
         منصة موارد — مدينة تعز
       </div>
     </div>
   )
 }
 
-export function Reset({ go, phone }) {
+export function Reset({ go }) {
   const [key, setKey] = useState('')
   const [pass, setPass] = useState('')
   const [err, setErr] = useState(null)
@@ -105,7 +105,6 @@ export function Reset({ go, phone }) {
     if (pass.length < 8) return setErr({ code: 2000, message: 'كلمة المرور الجديدة يجب أن تكون 8 أحرف على الأقل' })
     setLoading(true)
     try {
-      // اسم الحقل بحسب توثيق الباك إند: rest_key
       await authApi.resetPassword(key.trim(), pass)
       go('login')
     } catch (e) {
@@ -116,7 +115,7 @@ export function Reset({ go, phone }) {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 py-8 px-4 sm:px-6 flex flex-col justify-between">
+    <div className="min-h-screen bg-[#F9FAFB] dga-canvas-grid py-8 px-4 sm:px-6 flex flex-col justify-between">
       <div className="max-w-md w-full mx-auto">
         <div className="flex items-center justify-between pb-6 mb-2">
           <div className="cursor-pointer" onClick={() => go('home')}>
@@ -125,19 +124,19 @@ export function Reset({ go, phone }) {
           <BackBtn onClick={() => go('forgot')} label="رجوع" />
         </div>
 
-        <div className="bg-white rounded-3xl border border-slate-200 shadow-xl p-6 sm:p-8 fade-in text-center">
-          <div className="w-14 h-14 mx-auto rounded-2xl bg-emerald-50 text-emerald-700 flex items-center justify-center mb-4">
-            <Icons.Shield className="w-7 h-7" />
+        <div className="bg-white rounded-[16px] border border-[#E5E7EB] border-t-4 border-t-[#1B8354] shadow-card p-6 sm:p-8 fade-in text-right">
+          <div className="w-12 h-12 rounded-[8px] bg-[#F3FCF6] border border-[#B8EACB] text-[#067647] flex items-center justify-center mb-4">
+            <Icons.Shield className="w-6 h-6" />
           </div>
 
-          <h1 className="text-2xl font-black text-slate-900 mb-1">تعيين كلمة مرور جديدة</h1>
-          <p className="text-xs text-slate-500 mb-6">
+          <h1 className="text-2xl font-bold text-[#1F2A37] mb-1.5">تعيين كلمة مرور جديدة</h1>
+          <p className="text-xs sm:text-sm text-[#6C737F] mb-6 leading-relaxed">
             أدخل رمز الاستعادة المرسل إلى رقمك، ثم اختر كلمة مرور جديدة قوية
           </p>
 
           <ErrorBanner err={err} />
 
-          <form onSubmit={submit} className="space-y-4 text-right">
+          <form onSubmit={submit} className="space-y-4">
             <div>
               <Label req htmlFor="resetKey">رمز الاستعادة المرسل (SMS)</Label>
               <TextInput
@@ -162,7 +161,7 @@ export function Reset({ go, phone }) {
                 <button
                   type="button"
                   onClick={() => setShowPass(!showPass)}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1 cursor-pointer"
+                  className="absolute left-3 top-1/2 -translate-y-1/2 text-[#6C737F] hover:text-[#161616] p-1 rounded-[4px] cursor-pointer"
                   aria-label={showPass ? 'إخفاء كلمة المرور' : 'إظهار كلمة المرور'}
                 >
                   {showPass ? <Icons.EyeOff className="w-4 h-4" /> : <Icons.Eye className="w-4 h-4" />}
@@ -177,7 +176,7 @@ export function Reset({ go, phone }) {
         </div>
       </div>
 
-      <div className="text-center text-[11px] text-slate-400 py-4">
+      <div className="text-center text-[11px] text-[#6C737F] py-4">
         منصة موارد — مدينة تعز
       </div>
     </div>

@@ -1,30 +1,30 @@
-// ═══════════ ثوابت وأدوات تنسيق وتحقق لميزة طلبات المستفيد ═══════════
+// ═══════════ ثوابت وأدوات تنسيق وتحقق لميزة طلبات المستفيد — DGA Status Tags ═══════════
 
 export const ORDER_STATUS_META = {
   pending: {
     label: 'قيد الانتظار',
-    badgeClass: 'bg-amber-50 text-amber-700 border-amber-200',
-    dotClass: 'bg-amber-500',
+    badgeClass: 'bg-[#FFFAEB] text-[#B54708] border-[#FEDF89]',
+    dotClass: 'bg-[#B54708]',
   },
   accepted: {
     label: 'مقبول',
-    badgeClass: 'bg-sky-50 text-sky-700 border-sky-200',
-    dotClass: 'bg-sky-500',
+    badgeClass: 'bg-[#EFF8FF] text-[#175CD3] border-[#B2DDFF]',
+    dotClass: 'bg-[#175CD3]',
   },
   completed: {
     label: 'مكتمل',
-    badgeClass: 'bg-emerald-50 text-emerald-700 border-emerald-200',
-    dotClass: 'bg-emerald-500',
+    badgeClass: 'bg-[#ECFDF3] text-[#067647] border-[#ABEFC6]',
+    dotClass: 'bg-[#067647]',
   },
   rejected: {
     label: 'مرفوض',
-    badgeClass: 'bg-rose-50 text-rose-700 border-rose-200',
-    dotClass: 'bg-rose-500',
+    badgeClass: 'bg-[#FEF3F2] text-[#B42318] border-[#FECDCA]',
+    dotClass: 'bg-[#B42318]',
   },
   cancelled: {
     label: 'ملغي',
-    badgeClass: 'bg-slate-100 text-slate-600 border-slate-200',
-    dotClass: 'bg-slate-400',
+    badgeClass: 'bg-[#F3F4F6] text-[#4D5761] border-[#D2D6DB]',
+    dotClass: 'bg-[#6C737F]',
   },
 }
 
@@ -72,15 +72,15 @@ export const PAYMENT_METHOD_LABELS = {
 export const PAYMENT_STATUS_META = {
   unpaid: {
     label: 'غير مدفوع',
-    badgeClass: 'bg-amber-50 text-amber-700 border-amber-200',
+    badgeClass: 'bg-[#FFFAEB] text-[#B54708] border-[#FEDF89]',
   },
   paid: {
     label: 'مدفوع',
-    badgeClass: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+    badgeClass: 'bg-[#ECFDF3] text-[#067647] border-[#ABEFC6]',
   },
   refunded: {
     label: 'مسترد',
-    badgeClass: 'bg-sky-50 text-sky-700 border-sky-200',
+    badgeClass: 'bg-[#EFF8FF] text-[#175CD3] border-[#B2DDFF]',
   },
 }
 
@@ -93,8 +93,8 @@ export function getOrderStatusMeta(status) {
   return (
     ORDER_STATUS_META[status] || {
       label: status || 'غير معروف',
-      badgeClass: 'bg-slate-100 text-slate-700 border-slate-200',
-      dotClass: 'bg-slate-400',
+      badgeClass: 'bg-[#F3F4F6] text-[#384250] border-[#D2D6DB]',
+      dotClass: 'bg-[#6C737F]',
     }
   )
 }
@@ -103,7 +103,7 @@ export function getPaymentStatusMeta(paymentStatus) {
   return (
     PAYMENT_STATUS_META[paymentStatus] || {
       label: paymentStatus || '—',
-      badgeClass: 'bg-slate-100 text-slate-700 border-slate-200',
+      badgeClass: 'bg-[#F3F4F6] text-[#384250] border-[#D2D6DB]',
     }
   )
 }
@@ -157,7 +157,6 @@ export function getUnitAvailableAmount(stock, unit) {
   return 0
 }
 
-// استخراج صفات الاستفادة المفعّلة في ملف المستفيد إن توفرت، وإلا إتاحة الكل ليحسمها الخادم (1803)
 export function getEnabledConsumerTypes(user) {
   const src = user?.consumer_profile || user?.consumer || user?.profile || user
   if (!src || typeof src !== 'object') return ['home', 'business', 'driver']

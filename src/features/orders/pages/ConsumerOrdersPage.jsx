@@ -1,4 +1,4 @@
-// ═══════════ شاشة قائمة طلبات المستفيد مع الفلترة والترقيم وإلغاء الطلب ═══════════
+// ═══════════ شاشة قائمة طلبات المستفيد مع الفلترة والترقيم — DGA Design System ═══════════
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { ordersApi } from '../../../services/api'
 import { BackBtn, ErrorBanner, Icons, SecondaryBtn } from '../../../shared/components/ui'
@@ -94,9 +94,9 @@ export default function ConsumerOrdersPage({
   }
 
   return (
-    <div dir="rtl" className="min-h-screen bg-slate-50 text-slate-800 flex flex-col font-sans">
+    <div dir="rtl" className="min-h-screen bg-[#F9FAFB] text-[#1F2A37] flex flex-col font-sans">
       {/* ── الترويسة ── */}
-      <header className="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs">
+      <header className="bg-white border-b border-[#E5E7EB] sticky top-0 z-30">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3 min-w-0">
             <BackBtn
@@ -108,8 +108,8 @@ export default function ConsumerOrdersPage({
               label={initialStockId ? 'تفاصيل المخزون' : 'لوحة التحكم'}
             />
             <div className="min-w-0">
-              <h1 className="text-lg sm:text-xl font-black text-slate-900 truncate">طلباتي</h1>
-              <p className="text-xs text-slate-500 truncate">
+              <h1 className="text-lg sm:text-xl font-bold text-[#1F2A37] truncate">طلباتي</h1>
+              <p className="text-xs text-[#6C737F] truncate">
                 متابعة حالة الحجوزات والطلبات وإدارتها
               </p>
             </div>
@@ -119,7 +119,7 @@ export default function ConsumerOrdersPage({
             <button
               type="button"
               onClick={() => go(ROUTES.CONSUMER_STOCKS)}
-              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-mawarid-700 hover:bg-mawarid-800 text-white text-xs font-bold transition cursor-pointer"
+              className="inline-flex items-center gap-1.5 min-h-[38px] px-3.5 rounded-[4px] bg-[#1B8354] hover:bg-[#166A44] text-white text-xs font-medium dga-btn-motion cursor-pointer"
             >
               <Icons.Plus className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">طلب جديد</span>
@@ -130,7 +130,7 @@ export default function ConsumerOrdersPage({
               onClick={loadOrders}
               disabled={loading}
               aria-label="تحديث قائمة الطلبات"
-              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold transition cursor-pointer disabled:opacity-50"
+              className="inline-flex items-center gap-1.5 min-h-[38px] px-3 rounded-[4px] border border-[#D2D6DB] bg-white hover:bg-[#F3F4F6] text-[#161616] text-xs font-medium dga-btn-motion cursor-pointer disabled:opacity-50"
             >
               <Icons.Refresh className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
               <span className="hidden sm:inline">تحديث</span>
@@ -142,26 +142,26 @@ export default function ConsumerOrdersPage({
       {/* ── المحتوى ── */}
       <main className="max-w-5xl w-full mx-auto px-4 sm:px-6 py-6 flex-1 space-y-5 text-right">
         {/* لوحة الفلاتر */}
-        <section className="rounded-2xl border border-slate-200 bg-white p-4 sm:p-5 shadow-xs space-y-4">
+        <section className="dga-card p-4 sm:p-5 space-y-4">
           {/* فلتر حالة الطلب */}
-          <div className="space-y-2">
+          <div className="space-y-2.5">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-black text-slate-700 flex items-center gap-1.5">
-                <Icons.Filter className="w-3.5 h-3.5 text-mawarid-700" />
+              <span className="text-xs font-semibold text-[#161616] flex items-center gap-1.5">
+                <Icons.Filter className="w-3.5 h-3.5 text-[#1B8354]" />
                 <span>حالة الطلب</span>
               </span>
               {hasActiveFilters && (
                 <button
                   type="button"
                   onClick={resetFilters}
-                  className="text-xs font-bold text-rose-600 hover:underline cursor-pointer"
+                  className="text-xs font-semibold text-[#B42318] hover:underline cursor-pointer"
                 >
                   مسح الفلاتر
                 </button>
               )}
             </div>
 
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-1.5">
               {ORDER_STATUS_FILTERS.map((item) => {
                 const active = statusFilter === item.value
                 return (
@@ -172,10 +172,10 @@ export default function ConsumerOrdersPage({
                       setStatusFilter(item.value)
                       setPage(1)
                     }}
-                    className={`px-3 py-1.5 rounded-xl border text-xs font-bold transition cursor-pointer ${
+                    className={`px-3 py-1.5 rounded-[4px] border text-xs font-medium dga-btn-motion cursor-pointer ${
                       active
-                        ? 'border-mawarid-700 bg-mawarid-700 text-white shadow-xs'
-                        : 'border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700'
+                        ? 'border-[#1B8354] bg-[#1B8354] text-white font-semibold'
+                        : 'border-[#D2D6DB] bg-white hover:bg-[#F3FCF6] hover:border-[#1B8354] text-[#384250]'
                     }`}
                   >
                     {item.label}
@@ -186,19 +186,19 @@ export default function ConsumerOrdersPage({
           </div>
 
           {/* فلتر صفة المستفيد + فلتر المخزون المحدد */}
-          <div className="pt-3 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="text-xs font-bold text-slate-500">صفة المستفيد:</span>
+          <div className="pt-3 border-t border-[#E5E7EB] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="flex flex-wrap items-center gap-1.5">
+              <span className="text-xs font-medium text-[#6C737F]">صفة المستفيد:</span>
               <button
                 type="button"
                 onClick={() => {
                   setConsumerTypeFilter('')
                   setPage(1)
                 }}
-                className={`px-2.5 py-1 rounded-lg border text-xs font-bold transition cursor-pointer ${
+                className={`px-2.5 py-1 rounded-[4px] border text-xs font-medium dga-btn-motion cursor-pointer ${
                   consumerTypeFilter === ''
-                    ? 'border-mawarid-600 bg-mawarid-50 text-mawarid-800'
-                    : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50'
+                    ? 'border-[#1B8354] bg-[#F3FCF6] text-[#074D31] font-semibold'
+                    : 'border-[#D2D6DB] bg-white text-[#384250] hover:bg-[#F9FAFB]'
                 }`}
               >
                 الكل
@@ -211,10 +211,10 @@ export default function ConsumerOrdersPage({
                     setConsumerTypeFilter(opt.value)
                     setPage(1)
                   }}
-                  className={`px-2.5 py-1 rounded-lg border text-xs font-bold transition cursor-pointer ${
+                  className={`px-2.5 py-1 rounded-[4px] border text-xs font-medium dga-btn-motion cursor-pointer ${
                     consumerTypeFilter === opt.value
-                      ? 'border-mawarid-600 bg-mawarid-50 text-mawarid-800'
-                      : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50'
+                      ? 'border-[#1B8354] bg-[#F3FCF6] text-[#074D31] font-semibold'
+                      : 'border-[#D2D6DB] bg-white text-[#384250] hover:bg-[#F9FAFB]'
                   }`}
                 >
                   {opt.shortLabel}
@@ -223,8 +223,8 @@ export default function ConsumerOrdersPage({
             </div>
 
             {stockIdFilter && (
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-mawarid-50 border border-mawarid-200 text-xs font-bold text-mawarid-800 self-start sm:self-auto">
-                <Icons.Box className="w-3.5 h-3.5 shrink-0" />
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-[4px] bg-[#F3FCF6] border border-[#B8EACB] text-xs font-semibold text-[#074D31] self-start sm:self-auto">
+                <Icons.Box className="w-3.5 h-3.5 text-[#1B8354] shrink-0" />
                 <span>مخزون محدد{initialStockName ? `: ${initialStockName}` : ''}</span>
                 <button
                   type="button"
@@ -233,7 +233,7 @@ export default function ConsumerOrdersPage({
                     setPage(1)
                   }}
                   aria-label="إلغاء فلتر المخزون"
-                  className="p-0.5 rounded hover:bg-mawarid-100 text-mawarid-700 cursor-pointer"
+                  className="p-0.5 rounded-[4px] hover:bg-[#DCFAE6] text-[#074D31] cursor-pointer"
                 >
                   <Icons.Close className="w-3.5 h-3.5" />
                 </button>
@@ -244,7 +244,7 @@ export default function ConsumerOrdersPage({
 
         {/* عداد النتائج */}
         {!loading && !err && (
-          <div className="flex items-center justify-between text-xs text-slate-500 px-1">
+          <div className="flex items-center justify-between text-xs text-[#6C737F] px-1">
             <span>
               {total !== undefined && total !== null
                 ? `إجمالي الطلبات: ${formatOrderAmount(total)}`
@@ -256,22 +256,22 @@ export default function ConsumerOrdersPage({
 
         {/* القائمة */}
         {loading ? (
-          <div className="rounded-2xl border border-slate-200 bg-white p-10 text-center space-y-3">
-            <div className="w-8 h-8 mx-auto border-3 border-mawarid-200 border-t-mawarid-700 rounded-full animate-spin" />
-            <p className="text-sm font-bold text-slate-600">جارٍ تحميل قائمة الطلبات…</p>
+          <div className="dga-card p-10 text-center space-y-3 fade-in">
+            <div className="w-8 h-8 mx-auto border-2 border-[#B8EACB] border-t-[#1B8354] rounded-full animate-spin" />
+            <p className="text-sm font-medium text-[#6C737F]">جارٍ تحميل قائمة الطلبات…</p>
           </div>
         ) : err ? (
-          <div className="rounded-2xl border border-slate-200 bg-white p-6 space-y-4">
+          <div className="dga-card p-6 space-y-4 fade-in">
             <ErrorBanner err={err} />
             <SecondaryBtn onClick={loadOrders}>إعادة المحاولة</SecondaryBtn>
           </div>
         ) : orders.length === 0 ? (
-          <div className="rounded-2xl border border-slate-200 bg-white p-10 text-center space-y-3">
-            <div className="w-12 h-12 mx-auto rounded-2xl bg-slate-100 text-slate-500 flex items-center justify-center">
+          <div className="dga-card p-10 text-center space-y-3 fade-in">
+            <div className="w-12 h-12 mx-auto rounded-[8px] bg-[#F3F4F6] text-[#6C737F] flex items-center justify-center">
               <Icons.ShoppingBag className="w-6 h-6" />
             </div>
-            <h2 className="text-base font-black text-slate-900">لا توجد طلبات مطابقة</h2>
-            <p className="text-xs text-slate-500 max-w-md mx-auto">
+            <h2 className="text-base font-bold text-[#1F2A37]">لا توجد طلبات مطابقة</h2>
+            <p className="text-xs text-[#6C737F] max-w-md mx-auto leading-6">
               {hasActiveFilters
                 ? 'لا توجد طلبات تطابق الفلاتر المختارة حالياً. جرّب تغيير الحالة أو مسح الفلاتر.'
                 : 'لم تقم بإنشاء أي طلب بعد. استكشف المخزون المتاح وابدأ طلبك الأول.'}
@@ -283,7 +283,7 @@ export default function ConsumerOrdersPage({
                 <button
                   type="button"
                   onClick={() => go(ROUTES.CONSUMER_STOCKS)}
-                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-mawarid-700 hover:bg-mawarid-800 text-white text-xs font-bold transition cursor-pointer"
+                  className="inline-flex items-center gap-2 min-h-[40px] px-4 rounded-[4px] bg-[#1B8354] hover:bg-[#166A44] text-white text-xs font-medium dga-btn-motion cursor-pointer"
                 >
                   <Icons.Box className="w-4 h-4" />
                   <span>استكشاف المخزون المتاح</span>
@@ -292,7 +292,7 @@ export default function ConsumerOrdersPage({
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 dga-stagger">
             {orders.map((order) => (
               <OrderCard
                 key={order.id}
@@ -326,11 +326,11 @@ export default function ConsumerOrdersPage({
             </SecondaryBtn>
 
             <div className="text-center">
-              <div className="text-xs font-black text-slate-700">
+              <div className="text-xs font-semibold text-[#1F2A37]">
                 صفحة {page} من {totalPages}
               </div>
               {total !== undefined && total !== null && (
-                <div className="text-[11px] text-slate-400">{formatOrderAmount(total)} طلب</div>
+                <div className="text-[11px] text-[#6C737F]">{formatOrderAmount(total)} طلب</div>
               )}
             </div>
 

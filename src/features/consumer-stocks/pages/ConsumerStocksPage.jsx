@@ -1,4 +1,4 @@
-// ═══════════ شاشة استكشاف المخزون المتاح للمستفيدين ═══════════
+// ═══════════ شاشة استكشاف المخزون المتاح للمستفيدين — DGA Design System ═══════════
 import { useAuth } from '../../auth/hooks/useAuth'
 import { BackBtn, ErrorBanner, Icons, SecondaryBtn } from '../../../shared/components/ui'
 import { ROUTES } from '../../../shared/constants/routes'
@@ -47,17 +47,17 @@ export default function ConsumerStocksPage({ go, onSessionExpired }) {
   const total = meta?.total
 
   return (
-    <div dir="rtl" className="min-h-screen bg-slate-50 text-slate-800 flex flex-col font-sans">
+    <div dir="rtl" className="min-h-screen bg-[#F9FAFB] text-[#1F2A37] flex flex-col font-sans">
       {/* ── الترويسة ── */}
-      <header className="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs">
+      <header className="bg-white border-b border-[#E5E7EB] sticky top-0 z-30">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3 min-w-0">
             <BackBtn onClick={() => go(ROUTES.DASHBOARD)} label="لوحة التحكم" />
             <div className="min-w-0">
-              <h1 className="text-lg sm:text-xl font-black text-slate-900 truncate">
+              <h1 className="text-lg sm:text-xl font-bold text-[#1F2A37] truncate">
                 استكشاف المخزون المتاح
               </h1>
-              <p className="text-xs text-slate-500 truncate">
+              <p className="text-xs text-[#6C737F] truncate">
                 {activeCoords
                   ? 'مرتّب حسب الأقرب إلى موقعك مع حساب المسافة بالكيلومتر'
                   : 'مرتّب حسب الأحدث — حدد عنواناً افتراضياً للترتيب حسب الأقرب'}
@@ -70,7 +70,7 @@ export default function ConsumerStocksPage({ go, onSessionExpired }) {
             onClick={reload}
             disabled={loading}
             aria-label="تحديث القائمة"
-            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold transition cursor-pointer disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 min-h-[38px] px-3 rounded-[4px] border border-[#D2D6DB] bg-white hover:bg-[#F3F4F6] text-[#161616] text-xs font-medium dga-btn-motion cursor-pointer disabled:opacity-50"
           >
             <Icons.Refresh className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
             <span className="hidden sm:inline">تحديث</span>
@@ -112,14 +112,14 @@ export default function ConsumerStocksPage({ go, onSessionExpired }) {
 
         {/* 3) ملخص النتائج */}
         {!loading && !err && (
-          <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500 px-1">
+          <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-[#6C737F] px-1">
             <span>
               {total !== undefined && total !== null
                 ? `إجمالي النتائج: ${formatAmount(total)} مخزون`
                 : `عدد النتائج المعروضة: ${formatAmount(stocks.length)}`}
             </span>
             {activeCoords && (
-              <span className="inline-flex items-center gap-1 text-mawarid-700 font-bold">
+              <span className="inline-flex items-center gap-1 text-[#1B8354] font-semibold">
                 <Icons.MapPin className="w-3.5 h-3.5" />
                 <span>الأقرب أولاً</span>
               </span>
@@ -129,22 +129,22 @@ export default function ConsumerStocksPage({ go, onSessionExpired }) {
 
         {/* 4) حالات التحميل / الخطأ / فارغ / النتائج */}
         {loading ? (
-          <div className="rounded-2xl border border-slate-200 bg-white p-10 text-center space-y-3">
-            <div className="w-8 h-8 mx-auto border-3 border-mawarid-200 border-t-mawarid-700 rounded-full animate-spin" />
-            <p className="text-sm font-bold text-slate-600">جارٍ البحث عن المخزون المتاح…</p>
+          <div className="dga-card p-10 text-center space-y-3 fade-in">
+            <div className="w-8 h-8 mx-auto border-2 border-[#B8EACB] border-t-[#1B8354] rounded-full animate-spin" />
+            <p className="text-sm font-medium text-[#6C737F]">جارٍ البحث عن المخزون المتاح…</p>
           </div>
         ) : err ? (
-          <div className="rounded-2xl border border-slate-200 bg-white p-6 space-y-4">
+          <div className="dga-card p-6 space-y-4 fade-in">
             <ErrorBanner err={err} />
             <SecondaryBtn onClick={reload}>إعادة المحاولة</SecondaryBtn>
           </div>
         ) : stocks.length === 0 ? (
-          <div className="rounded-2xl border border-slate-200 bg-white p-10 text-center space-y-3">
-            <div className="w-12 h-12 mx-auto rounded-xl bg-slate-100 text-slate-500 flex items-center justify-center">
+          <div className="dga-card p-10 text-center space-y-3 fade-in">
+            <div className="w-12 h-12 mx-auto rounded-[8px] bg-[#F3F4F6] text-[#6C737F] flex items-center justify-center">
               <Icons.Box className="w-6 h-6" />
             </div>
-            <h2 className="text-base font-black text-slate-900">لا توجد مخازن مطابقة حالياً</h2>
-            <p className="text-xs text-slate-500 max-w-md mx-auto leading-relaxed">
+            <h2 className="text-base font-bold text-[#1F2A37]">لا توجد مخازن مطابقة حالياً</h2>
+            <p className="text-xs text-[#6C737F] max-w-md mx-auto leading-6">
               {hasActiveFilters
                 ? 'جرّب توسيع نطاق المسافة أو تغيير فلاتر البحث والتوفر لعرض مزيد من النتائج.'
                 : 'لا توجد مخازن متاحة للعرض في الوقت الحالي. حاول التحديث لاحقاً.'}
@@ -156,7 +156,7 @@ export default function ConsumerStocksPage({ go, onSessionExpired }) {
             )}
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 dga-stagger">
             {stocks.map((stock) => (
               <ConsumerStockCard
                 key={stock.id}
@@ -181,11 +181,11 @@ export default function ConsumerStocksPage({ go, onSessionExpired }) {
             </SecondaryBtn>
 
             <div className="text-center">
-              <div className="text-xs font-black text-slate-700">
+              <div className="text-xs font-semibold text-[#1F2A37]">
                 صفحة {page} من {totalPages}
               </div>
               {total !== undefined && total !== null && (
-                <div className="text-[11px] text-slate-400">{formatAmount(total)} مخزون</div>
+                <div className="text-[11px] text-[#6C737F]">{formatAmount(total)} مخزون</div>
               )}
             </div>
 

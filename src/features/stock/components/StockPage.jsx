@@ -1,10 +1,10 @@
-// ═══════════ قالب شاشة المخزون — ترويسة + محتوى عريض ═══════════
+// ═══════════ قالب شاشة المخزون — ترويسة + محتوى عريض — DGA Design System ═══════════
 import StockHeader from './StockHeader'
 import { ROUTES } from '../../../shared/constants/routes'
 
 export default function StockPage({ title, subtitle, go, backTo = ROUTES.DASHBOARD, backParams = {}, backLabel = 'رجوع', action, children }) {
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800 flex flex-col font-sans">
+    <div className="min-h-screen bg-[#F9FAFB] text-[#1F2A37] flex flex-col font-sans">
       <StockHeader
         title={title}
         subtitle={subtitle}

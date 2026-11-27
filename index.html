@@ -9,63 +9,85 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
         extend: {
           fontFamily: {
-            sans: ['Tajawal', 'Noto Sans Arabic', 'system-ui', 'sans-serif'],
+            sans: ['"IBM Plex Sans Arabic"', 'system-ui', '-apple-system', 'sans-serif'],
+            display: ['"IBM Plex Sans Arabic"', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['"IBM Plex Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+          },
+          borderRadius: {
+            'dga-xs': '2px',
+            'dga-sm': '4px',
+            'dga-md': '8px',
+            'dga-lg': '16px',
+            'dga-xl': '24px',
           },
           boxShadow: {
-            xs: '0 1px 2px 0 rgb(15 23 42 / 0.05)',
-            card: '0 1px 3px rgb(15 23 42 / 0.06), 0 8px 24px -8px rgb(15 23 42 / 0.10)',
+            xs: '0 1px 2px 0 rgba(16, 24, 40, 0.04)',
+            card: '0 4px 12px -2px rgba(16, 24, 40, 0.07), 0 2px 4px -2px rgba(16, 24, 40, 0.04)',
+            'dga-md': '0 4px 12px -2px rgba(16, 24, 40, 0.07), 0 2px 4px -2px rgba(16, 24, 40, 0.04)',
+            'dga-lg': '0 12px 24px -6px rgba(16, 24, 40, 0.10), 0 4px 8px -4px rgba(16, 24, 40, 0.05)',
           },
           spacing: { 13: '3.25rem', 18: '4.5rem' },
           colors: {
-            mawarid: {
-              50: '#f0f7ff',
-              100: '#e0effe',
-              200: '#bae0fd',
-              300: '#7dc5fc',
-              400: '#38a5f8',
-              500: '#0e87ea',
-              600: '#026ac8',
-              700: '#0354a2',
-              800: '#074785',
-              900: '#0b3c6f',
-              950: '#07264a',
+            /* DGA Platforms Code (PC 1.0) Palette */
+            dga: {
+              flag: '#074D31',
+              'flag-800': '#14573A',
+              primary: '#1B8354',
+              'primary-hover': '#166A44',
+              'primary-50': '#F3FCF6',
+              'primary-100': '#DCFAE6',
+              'primary-200': '#B8EACB',
+              gold: '#DBA102',
+              'warning-50': '#FFFAEB',
+              'warning-700': '#B54708',
+              'error-50': '#FEF3F2',
+              'error-200': '#FECDCA',
+              'error-700': '#B42318',
+              'success-50': '#ECFDF3',
+              'success-200': '#ABEFC6',
+              'success-700': '#067647',
+              'info-50': '#EFF8FF',
+              'info-200': '#B2DDFF',
+              'info-700': '#175CD3',
+              display: '#1F2A37',
+              default: '#161616',
+              paragraph: '#384250',
+              secondary: '#6C737F',
+              disabled: '#9DA4AE',
+              'border-strong': '#9DA4AE',
+              'border-primary': '#D2D6DB',
+              'border-secondary': '#E5E7EB',
+              'surface-subtle': '#F3F4F6',
+              canvas: '#F9FAFB',
+              dark: '#0D121C',
             },
-            taiz: {
-              primary: '#0e2b4a',
-              accent: '#d97706',
-              water: '#0284c7',
-              gas: '#ea580c',
-              fuel: '#059669',
-            }
-          }
-        }
-      }
+            /* Remapped legacy alias to DGA PC 1.0 Green scale for full consistency */
+            mawarid: {
+              50: '#F3FCF6',
+              100: '#DCFAE6',
+              200: '#B8EACB',
+              300: '#86DFAD',
+              400: '#54C08A',
+              500: '#279E68',
+              600: '#1B8354',
+              700: '#1B8354',
+              800: '#14573A',
+              900: '#074D31',
+              950: '#053823',
+            },
+          },
+        },
+      },
     }
   </script>
-  <style>
-    section[id] { scroll-margin-top: 6rem; }
-    input, select, textarea { font-size: 16px; }
-    :focus-visible { outline: 3px solid #0e87ea; outline-offset: 2px; border-radius: 6px; }
-    input:focus-visible, textarea:focus-visible { outline: none; }
-    .skip-link { position: absolute; top: -100px; right: 1rem; z-index: 100; background: #0354a2; color: #fff; padding: .75rem 1.25rem; border-radius: .75rem; font-weight: 700; transition: top .2s; }
-    .skip-link:focus { top: 1rem; }
-    .hero-grid { background-image: radial-gradient(circle at 1px 1px, rgb(3 84 162 / 0.10) 1px, transparent 0); background-size: 22px 22px; }
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
-    }
-    .fade-in { animation: fadeIn .3s cubic-bezier(0.16, 1, 0.3, 1); }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-    .sheet-up { animation: sheetUp .28s cubic-bezier(0.16, 1, 0.3, 1); }
-    @keyframes sheetUp { from { opacity: 0; transform: translateY(100%); } to { opacity: 1; transform: translateY(0); } }
-  </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased selection:bg-blue-600 selection:text-white min-h-screen">
+<body class="bg-[#F9FAFB] text-[#1F2A37] antialiased selection:bg-[#1B8354] selection:text-white min-h-screen">
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
 </body>

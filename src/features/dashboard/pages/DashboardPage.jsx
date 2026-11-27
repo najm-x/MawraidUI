@@ -1,4 +1,4 @@
-// ═══════════ لوحة التحكم بعد الدخول — منصة موارد (تعز) ═══════════
+// ═══════════ لوحة التحكم بعد الدخول — منصة موارد (تعز) | DGA Design System ═══════════
 import { useState } from 'react'
 import { useAuth } from '../../auth/hooks/useAuth'
 import { Icons, BrandLogo, ResourceBadge } from '../../../shared/components/ui'
@@ -24,24 +24,24 @@ export default function Dashboard({ go, showToast, onSessionExpired }) {
   const addressEntry = isAdmin ? 'عرض عناوين المواطنين' : 'عناويني'
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800 flex flex-col font-sans">
-      {/* ── شريط الملاحة العلوي ── */}
-      <header className="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs">
+    <div className="min-h-screen bg-[#F9FAFB] text-[#1F2A37] flex flex-col font-sans">
+      {/* ── شريط الملاحة العلوي (DGA Nav Header) ── */}
+      <header className="bg-white border-b border-[#E5E7EB] sticky top-0 z-30">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-18 flex items-center justify-between gap-4">
           <div className="cursor-pointer" onClick={() => go('home')}>
             <BrandLogo size="sm" />
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5">
             <button
               onClick={() => go('home')}
-              className="text-xs font-bold text-slate-600 hover:text-mawarid-700 px-3 py-2 rounded-lg hover:bg-slate-100 transition hidden sm:inline"
+              className="text-xs font-medium text-[#384250] hover:text-[#1B8354] px-3 py-2 rounded-[4px] hover:bg-[#F3F4F6] transition-colors hidden sm:inline cursor-pointer"
             >
               الرئيسية
             </button>
             <button
               onClick={doLogout}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-rose-200 bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-bold transition cursor-pointer"
+              className="inline-flex items-center gap-1.5 min-h-[38px] px-3.5 rounded-[4px] border border-[#FECDCA] bg-[#FEF3F2] hover:bg-[#FECDCA]/50 text-[#B42318] text-xs font-semibold dga-btn-motion cursor-pointer"
             >
               <Icons.LogOut className="w-4 h-4" />
               <span>تسجيل الخروج</span>
@@ -52,49 +52,49 @@ export default function Dashboard({ go, showToast, onSessionExpired }) {
 
       {/* ── المحتوى الرئيسي للوحة التحكم ── */}
       <main className="max-w-6xl w-full mx-auto px-4 sm:px-6 py-8 flex-1 space-y-8 text-right">
-        
-        {/* بطاقة الترحيب وملف المستخدم */}
-        <div className="rounded-3xl bg-gradient-to-r from-mawarid-900 via-mawarid-800 to-mawarid-950 text-white p-6 sm:p-8 shadow-xl relative overflow-hidden">
+        {/* بطاقة الترحيب وملف المستخدم (DGA SA-Flag 24px Banner) */}
+        <div className="dga-hero-banner dga-banner-pattern p-6 sm:p-8 border-b-4 border-b-[#DBA102]">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 relative z-10">
             <div className="flex items-center gap-4">
-              <div className="w-16 h-16 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center text-white shrink-0">
-                <Icons.User className="w-8 h-8" />
+              {/* DGA Avatar (radius/round 9999) */}
+              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white/10 border-2 border-white/25 flex items-center justify-center text-white shrink-0">
+                <Icons.User className="w-7 h-7 sm:w-8 sm:h-8" />
               </div>
               <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <h1 className="text-xl sm:text-2xl font-black">{user.name || 'مستخدم منصة موارد'}</h1>
-                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-xs font-bold">
+                <div className="flex flex-wrap items-center gap-2.5 mb-1">
+                  <h1 className="text-xl sm:text-2xl font-bold text-white">{user.name || 'مستخدم منصة موارد'}</h1>
+                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-white/10 border border-white/20 text-[#54C08A] text-xs font-medium">
                     <Icons.Check className="w-3 h-3" />
                     <span>حساب موثق</span>
                   </span>
                 </div>
-                <p className="text-xs sm:text-sm text-slate-300 font-mono" dir="ltr">+967 {user.phone}</p>
-                <div className="mt-2 text-xs font-medium text-mawarid-200">
+                <p className="text-xs sm:text-sm text-white/85 font-mono" dir="ltr">+967 {user.phone}</p>
+                <div className="mt-1.5 text-xs font-normal text-white/80">
                   {isAdmin ? 'إدارة المنصة' : isProvider ? 'وكيل / مركز توزيع معتمد في مدينة تعز' : 'مواطن / مستفيد من الحصص الأساسية'}
                 </div>
               </div>
             </div>
 
             <div className="flex items-center gap-2 self-start sm:self-center">
-              <span className="px-4 py-2 rounded-xl bg-white/10 border border-white/15 text-xs font-bold text-white">
+              <span className="px-3.5 py-1.5 rounded-[4px] bg-white/10 border border-white/20 text-xs font-medium text-white">
                 {isAdmin ? 'صلاحية: مسؤول' : isProvider ? 'صلاحية: وكيل خدمة' : 'صلاحية: مستفيد معتمد'}
               </span>
             </div>
           </div>
         </div>
 
-        {/* ── بطاقة المخزون والطلبات الواردة (للمزود فقط — لا تظهر للمستفيدين) ── */}
+        {/* ── بطاقة المخزون والطلبات الواردة (للمزود فقط) ── */}
         {isProvider && (
           <div className="space-y-8">
             <div className="space-y-4">
               <div className="flex flex-wrap items-center justify-between gap-3">
-                <h2 className="text-lg font-black text-slate-900">إدارة المخزون</h2>
+                <h2 className="text-lg font-bold text-[#1F2A37]">إدارة المخزون</h2>
                 <button
                   type="button"
                   onClick={() => go(ROUTES.PROVIDER_ORDERS)}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-mawarid-200 bg-white hover:border-mawarid-500 text-mawarid-800 text-xs font-bold transition shadow-xs cursor-pointer"
+                  className="inline-flex items-center gap-1.5 min-h-[38px] px-3.5 rounded-[4px] border border-[#D2D6DB] bg-white hover:border-[#1B8354] hover:bg-[#F3FCF6] text-[#161616] hover:text-[#1B8354] text-xs font-semibold dga-btn-motion cursor-pointer"
                 >
-                  <Icons.ShoppingBag className="w-4 h-4 text-mawarid-700" />
+                  <Icons.ShoppingBag className="w-4 h-4 text-[#1B8354]" />
                   <span>جميع الطلبات الواردة</span>
                 </button>
               </div>
@@ -111,49 +111,52 @@ export default function Dashboard({ go, showToast, onSessionExpired }) {
         )}
 
         {(isCitizen || isAdmin) && (
-          <div className="flex flex-wrap items-stretch gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 dga-stagger">
             <button
               type="button"
               onClick={() => go(ROUTES.CONSUMER_STOCKS)}
-              className="flex w-full items-center gap-3 rounded-2xl border border-mawarid-200 bg-white p-4 text-start shadow-xs hover:border-mawarid-500 transition cursor-pointer sm:w-auto sm:pe-6"
+              className="group dga-card-interactive flex items-center gap-3.5 p-4 sm:p-5 text-start cursor-pointer"
             >
-              <span className="rounded-xl bg-mawarid-50 p-2.5 text-mawarid-700">
+              <span className="rounded-[8px] bg-[#F3FCF6] border border-[#B8EACB] p-2.5 text-[#1B8354] shrink-0">
                 <Icons.Box className="w-5 h-5" />
               </span>
-              <span className="flex-1">
-                <span className="block font-black text-slate-900">استكشاف المخزون المتاح</span>
-                <span className="block text-xs text-slate-500">تصفّح أقرب المخازن مع المسافة بالكيلومتر</span>
+              <span className="flex-1 min-w-0">
+                <span className="block text-sm font-bold text-[#1F2A37]">استكشاف المخزون المتاح</span>
+                <span className="block text-xs text-[#6C737F] mt-0.5">تصفّح أقرب المخازن مع المسافة بالكيلومتر</span>
               </span>
-              <Icons.ArrowRight className="w-4 h-4 rotate-180 text-mawarid-700" />
+              <Icons.ArrowLeft className="w-4 h-4 text-[#1B8354] shrink-0 transition-transform duration-150 group-hover:-translate-x-0.5" />
             </button>
 
             {isCitizen && (
               <button
                 type="button"
                 onClick={() => go(ROUTES.CONSUMER_ORDERS)}
-                className="flex w-full items-center gap-3 rounded-2xl border border-slate-200 bg-white p-4 text-start shadow-xs hover:border-mawarid-500 transition cursor-pointer sm:w-auto sm:pe-6"
+                className="group dga-card-interactive flex items-center gap-3.5 p-4 sm:p-5 text-start cursor-pointer"
               >
-                <span className="rounded-xl bg-mawarid-50 p-2.5 text-mawarid-700">
+                <span className="rounded-[8px] bg-[#F3FCF6] border border-[#B8EACB] p-2.5 text-[#1B8354] shrink-0">
                   <Icons.ShoppingBag className="w-5 h-5" />
                 </span>
-                <span className="flex-1">
-                  <span className="block font-black text-slate-900">طلباتي وحجوزاتي</span>
-                  <span className="block text-xs text-slate-500">متابعة حالة الطلبات وإلغاء المعلّق منها</span>
+                <span className="flex-1 min-w-0">
+                  <span className="block text-sm font-bold text-[#1F2A37]">طلباتي وحجوزاتي</span>
+                  <span className="block text-xs text-[#6C737F] mt-0.5">متابعة حالة الطلبات وإلغاء المعلّق منها</span>
                 </span>
-                <Icons.ArrowRight className="w-4 h-4 rotate-180 text-mawarid-700" />
+                <Icons.ArrowLeft className="w-4 h-4 text-[#1B8354] shrink-0 transition-transform duration-150 group-hover:-translate-x-0.5" />
               </button>
             )}
 
             <button
               type="button"
               onClick={() => go(isAdmin ? ROUTES.ADMIN_ADDRESSES : ROUTES.CITIZEN_ADDRESSES)}
-              className="flex w-full items-center gap-3 rounded-2xl border border-slate-200 bg-white p-4 text-start shadow-xs hover:border-mawarid-500 transition cursor-pointer sm:w-auto sm:pe-6"
+              className="group dga-card-interactive flex items-center gap-3.5 p-4 sm:p-5 text-start cursor-pointer"
             >
-              <span className="rounded-xl bg-mawarid-50 p-2.5 text-mawarid-700">
+              <span className="rounded-[8px] bg-[#F3FCF6] border border-[#B8EACB] p-2.5 text-[#1B8354] shrink-0">
                 <Icons.MapPin className="w-5 h-5" />
               </span>
-              <span className="flex-1 font-black text-slate-900">{addressEntry}</span>
-              <Icons.ArrowRight className="w-4 h-4 rotate-180 text-mawarid-700" />
+              <span className="flex-1 min-w-0">
+                <span className="block text-sm font-bold text-[#1F2A37]">{addressEntry}</span>
+                <span className="block text-xs text-[#6C737F] mt-0.5">إدارة مواقع التوصيل والإحداثيات</span>
+              </span>
+              <Icons.ArrowLeft className="w-4 h-4 text-[#1B8354] shrink-0 transition-transform duration-150 group-hover:-translate-x-0.5" />
             </button>
           </div>
         )}
@@ -169,114 +172,116 @@ export default function Dashboard({ go, showToast, onSessionExpired }) {
 
         {/* بطاقات حالة الموارد والحصص */}
         <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h2 className="text-lg font-black text-slate-900">سجل وحالة الحصص المخصصة</h2>
-            <span className="text-xs text-slate-500">دورة التوزيع الحالية: شعبان 1447هـ</span>
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <h2 className="text-lg font-bold text-[#1F2A37]">سجل وحالة الحصص المخصصة</h2>
+            <span className="px-2.5 py-1 rounded-[4px] bg-[#F3F4F6] border border-[#E5E7EB] text-xs font-medium text-[#384250]">
+              دورة التوزيع الحالية: شعبان 1447هـ
+            </span>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 dga-stagger">
             {/* حصة الغاز */}
-            <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs hover:shadow-md transition">
+            <div className="dga-card-interactive p-6 flex flex-col">
               <div className="flex items-center justify-between mb-4">
                 <ResourceBadge type="gas" />
-                <span className="text-xs font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
+                <span className="text-xs font-semibold text-[#B54708] bg-[#FFFAEB] px-2.5 py-0.5 rounded-full border border-[#FEDF89]">
                   مجدولة
                 </span>
               </div>
-              <h3 className="text-base font-bold text-slate-900 mb-1">غاز الطهي المنزلي</h3>
-              <p className="text-xs text-slate-500 mb-4">كارت الحصة: <strong className="font-mono text-slate-800">TAIZ-GAS-4902</strong></p>
-              
-              <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 text-xs space-y-1.5 mb-4">
-                <div className="flex justify-between text-slate-600">
+              <h3 className="text-base font-bold text-[#1F2A37] mb-1">غاز الطهي المنزلي</h3>
+              <p className="text-xs text-[#6C737F] mb-4">كارت الحصة: <strong className="font-mono text-[#1F2A37]">TAIZ-GAS-4902</strong></p>
+
+              <div className="p-3.5 rounded-[8px] bg-[#F9FAFB] border border-[#E5E7EB] text-xs space-y-2 mb-5">
+                <div className="flex justify-between text-[#6C737F]">
                   <span>المركز المعتمد:</span>
-                  <span className="font-bold text-slate-800">مركز المسبح</span>
+                  <span className="font-semibold text-[#1F2A37]">مركز المسبح</span>
                 </div>
-                <div className="flex justify-between text-slate-600">
+                <div className="flex justify-between text-[#6C737F]">
                   <span>الموعد المتوقع:</span>
-                  <span className="font-bold text-slate-800">الخميس القادم</span>
+                  <span className="font-semibold text-[#1F2A37]">الخميس القادم</span>
                 </div>
-                <div className="flex justify-between text-slate-600">
+                <div className="flex justify-between text-[#6C737F]">
                   <span>السعر الرسمي:</span>
-                  <span className="font-bold text-emerald-700">4,500 ريال</span>
+                  <span className="font-semibold text-[#067647]">4,500 ريال</span>
                 </div>
               </div>
 
-              <button className="w-full py-2 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-800 font-bold text-xs transition cursor-pointer">
+              <button className="mt-auto w-full min-h-[40px] rounded-[4px] border border-[#D2D6DB] bg-white hover:bg-[#F3FCF6] hover:border-[#1B8354] hover:text-[#1B8354] text-[#161616] font-medium text-xs dga-btn-motion cursor-pointer">
                 عرض كود الاستلام (QR)
               </button>
             </div>
 
             {/* حصة المياه */}
-            <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs hover:shadow-md transition">
+            <div className="dga-card-interactive p-6 flex flex-col">
               <div className="flex items-center justify-between mb-4">
                 <ResourceBadge type="water" />
-                <span className="text-xs font-bold text-sky-700 bg-sky-50 px-2 py-0.5 rounded border border-sky-200">
+                <span className="text-xs font-semibold text-[#175CD3] bg-[#EFF8FF] px-2.5 py-0.5 rounded-full border border-[#B2DDFF]">
                   حجز متاح
                 </span>
               </div>
-              <h3 className="text-base font-bold text-slate-900 mb-1">مياه الشرب والوايتات</h3>
-              <p className="text-xs text-slate-500 mb-4">الحي السكني: <strong className="text-slate-800">مديرية القاهرة</strong></p>
-              
-              <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 text-xs space-y-1.5 mb-4">
-                <div className="flex justify-between text-slate-600">
+              <h3 className="text-base font-bold text-[#1F2A37] mb-1">مياه الشرب والوايتات</h3>
+              <p className="text-xs text-[#6C737F] mb-4">الحي السكني: <strong className="text-[#1F2A37]">مديرية القاهرة</strong></p>
+
+              <div className="p-3.5 rounded-[8px] bg-[#F9FAFB] border border-[#E5E7EB] text-xs space-y-2 mb-5">
+                <div className="flex justify-between text-[#6C737F]">
                   <span>جدول ضخ الشبكة:</span>
-                  <span className="font-bold text-slate-800">الأحد 10:00 ص</span>
+                  <span className="font-semibold text-[#1F2A37]">الأحد 10:00 ص</span>
                 </div>
-                <div className="flex justify-between text-slate-600">
+                <div className="flex justify-between text-[#6C737F]">
                   <span>حجز وايت صهريج:</span>
-                  <span className="font-bold text-sky-700">3,000 لتر متاح</span>
+                  <span className="font-semibold text-[#175CD3]">3,000 لتر متاح</span>
                 </div>
-                <div className="flex justify-between text-slate-600">
+                <div className="flex justify-between text-[#6C737F]">
                   <span>تسعيرة الوايت:</span>
-                  <span className="font-bold text-emerald-700">معتمدة رسمياً</span>
+                  <span className="font-semibold text-[#067647]">معتمدة رسمياً</span>
                 </div>
               </div>
 
-              <button className="w-full py-2 rounded-xl bg-sky-500/10 hover:bg-sky-500/20 text-sky-800 font-bold text-xs transition cursor-pointer">
+              <button className="mt-auto w-full min-h-[40px] rounded-[4px] border border-[#D2D6DB] bg-white hover:bg-[#F3FCF6] hover:border-[#1B8354] hover:text-[#1B8354] text-[#161616] font-medium text-xs dga-btn-motion cursor-pointer">
                 حجز صهريج مياه معتمد
               </button>
             </div>
 
             {/* حصة الوقود */}
-            <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs hover:shadow-md transition">
+            <div className="dga-card-interactive p-6 flex flex-col">
               <div className="flex items-center justify-between mb-4">
                 <ResourceBadge type="fuel" />
-                <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                <span className="text-xs font-semibold text-[#067647] bg-[#ECFDF3] px-2.5 py-0.5 rounded-full border border-[#ABEFC6]">
                   ساري
                 </span>
               </div>
-              <h3 className="text-base font-bold text-slate-900 mb-1">مخصصات الوقود</h3>
-              <p className="text-xs text-slate-500 mb-4">الفئة: <strong className="text-slate-800">مركبة نقل داخلي</strong></p>
-              
-              <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 text-xs space-y-1.5 mb-4">
-                <div className="flex justify-between text-slate-600">
+              <h3 className="text-base font-bold text-[#1F2A37] mb-1">مخصصات الوقود</h3>
+              <p className="text-xs text-[#6C737F] mb-4">الفئة: <strong className="text-[#1F2A37]">مركبة نقل داخلي</strong></p>
+
+              <div className="p-3.5 rounded-[8px] bg-[#F9FAFB] border border-[#E5E7EB] text-xs space-y-2 mb-5">
+                <div className="flex justify-between text-[#6C737F]">
                   <span>المحطة المخصصة:</span>
-                  <span className="font-bold text-slate-800">محطة الصقر</span>
+                  <span className="font-semibold text-[#1F2A37]">محطة الصقر</span>
                 </div>
-                <div className="flex justify-between text-slate-600">
+                <div className="flex justify-between text-[#6C737F]">
                   <span>الحصة الأسبوعية:</span>
-                  <span className="font-bold text-slate-800">40 لتر</span>
+                  <span className="font-semibold text-[#1F2A37]">40 لتر</span>
                 </div>
-                <div className="flex justify-between text-slate-600">
+                <div className="flex justify-between text-[#6C737F]">
                   <span>حالة التزويد:</span>
-                  <span className="font-bold text-emerald-700">جاهز للصرف</span>
+                  <span className="font-semibold text-[#067647]">جاهز للصرف</span>
                 </div>
               </div>
 
-              <button className="w-full py-2 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-800 font-bold text-xs transition cursor-pointer">
+              <button className="mt-auto w-full min-h-[40px] rounded-[4px] border border-[#D2D6DB] bg-white hover:bg-[#F3FCF6] hover:border-[#1B8354] hover:text-[#1B8354] text-[#161616] font-medium text-xs dga-btn-motion cursor-pointer">
                 تأكيد كود تزويد الوقود
               </button>
             </div>
           </div>
         </div>
 
-        {/* إرشادات وأمان الجلسة */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <Icons.Shield className="w-4 h-4 text-emerald-600 shrink-0" />
+        {/* إرشادات وأمان الجلسة (DGA Inline Alert Style) */}
+        <div className="rounded-[8px] border border-[#E5E7EB] border-s-4 border-s-[#1B8354] bg-white p-4 text-xs text-[#6C737F] flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-2.5">
+            <Icons.Shield className="w-4 h-4 text-[#067647] shrink-0" />
             <span>جلسة آمنة مشفرة عبر ملفات تعريف الارتباط الآمنة (HttpOnly Cookie) المتصلة بمنظومة موارد تعز.</span>
           </div>
-          <div className="text-[11px] font-mono text-slate-400">
+          <div className="text-[11px] font-mono text-[#9DA4AE]">
             Node: taiz-auth-v1
           </div>
         </div>

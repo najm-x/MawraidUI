@@ -5,10 +5,10 @@ export function BackBtn({ onClick, label = 'رجوع' }) {
     <button
       onClick={onClick}
       type="button"
-      className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition focus:outline-none focus:ring-2 focus:ring-mawarid-500 cursor-pointer"
+      className="group inline-flex items-center gap-1.5 min-h-[38px] px-3 py-1.5 rounded-[4px] border border-[#D2D6DB] bg-white hover:bg-[#F3F4F6] hover:border-[#9DA4AE] active:bg-[#E5E7EB] text-[#161616] text-xs font-semibold dga-btn-motion cursor-pointer"
       aria-label={label}
     >
-      <Icons.ArrowRight className="w-4 h-4" />
+      <Icons.ArrowRight className="w-4 h-4 text-[#384250] transition-transform duration-150 group-hover:translate-x-0.5" />
       <span>{label}</span>
     </button>
   )
@@ -20,7 +20,7 @@ export function PrimaryBtn({ children, onClick, disabled, loading, className = '
       type={type}
       onClick={onClick}
       disabled={disabled || loading}
-      className={`mt-5 w-full min-h-[50px] rounded-xl bg-mawarid-700 text-white text-sm font-bold hover:bg-mawarid-800 active:bg-mawarid-900 transition shadow-md shadow-mawarid-900/15 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer focus:outline-none focus:ring-2 focus:ring-mawarid-500 focus:ring-offset-2 ${className}`}
+      className={`mt-5 w-full min-h-[46px] px-4 rounded-[4px] bg-[#1B8354] hover:bg-[#166A44] active:bg-[#074D31] text-white text-[15px] leading-6 font-medium dga-btn-motion disabled:bg-[#E5E7EB] disabled:text-[#9DA4AE] disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer ${className}`}
     >
       {loading ? (
         <>
@@ -40,7 +40,7 @@ export function SecondaryBtn({ children, onClick, disabled, className = '', type
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={`min-h-[44px] px-4 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-sm font-bold transition shadow-sm active:bg-slate-100 cursor-pointer focus:outline-none focus:ring-2 focus:ring-mawarid-500 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white ${className}`}
+      className={`min-h-[42px] px-4 rounded-[4px] border border-[#D2D6DB] bg-white hover:bg-[#F3F4F6] hover:border-[#9DA4AE] active:bg-[#E5E7EB] text-[#161616] text-sm font-medium dga-btn-motion cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white ${className}`}
     >
       {children}
     </button>

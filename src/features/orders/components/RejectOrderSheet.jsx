@@ -1,4 +1,4 @@
-// ═══════════ نافذة سفلية (Bottom Sheet) لرفض طلب وارد من قبل المزود ═══════════
+// ═══════════ نافذة سفلية (Bottom Sheet) لرفض طلب وارد من قبل المزود — DGA Design System ═══════════
 import { useEffect, useState } from 'react'
 import { ordersApi } from '../../../services/api'
 import { ErrorBanner, Icons, Label, SecondaryBtn } from '../../../shared/components/ui'
@@ -93,20 +93,20 @@ export default function RejectOrderSheet({
       aria-labelledby="reject-order-sheet-title"
     >
       <div
-        className="fixed inset-0 bg-slate-900/55 backdrop-blur-[2px]"
+        className="fixed inset-0 bg-[#0D121C]/50 backdrop-blur-[2px] dga-backdrop-in"
         onClick={() => !submitting && onClose?.()}
         aria-hidden="true"
       />
 
-      <div className="sheet-up relative z-10 w-full max-w-lg bg-white rounded-t-3xl border-t border-x border-slate-200 shadow-2xl max-h-[90vh] flex flex-col overflow-hidden text-right">
-        <div className="px-5 sm:px-6 pt-3 pb-4 border-b border-slate-100">
-          <div className="w-12 h-1.5 rounded-full bg-slate-200 mx-auto mb-3" aria-hidden="true" />
+      <div className="sheet-up relative z-10 w-full max-w-lg bg-white rounded-t-[16px] border-t border-x border-[#D2D6DB] shadow-dga-lg max-h-[90vh] flex flex-col overflow-hidden text-right">
+        <div className="px-5 sm:px-6 pt-3 pb-4 border-b border-[#E5E7EB]">
+          <div className="w-12 h-1 rounded-full bg-[#D2D6DB] mx-auto mb-3" aria-hidden="true" />
           <div className="flex items-start justify-between gap-3">
             <div>
-              <h2 id="reject-order-sheet-title" className="text-lg font-black text-slate-900">
+              <h2 id="reject-order-sheet-title" className="text-lg font-bold text-[#1F2A37]">
                 رفض الطلب الوارد
               </h2>
-              <p className="text-xs text-slate-500 mt-0.5 font-mono" dir="ltr">
+              <p className="text-xs text-[#6C737F] mt-0.5 font-mono" dir="ltr">
                 {order.order_number}
               </p>
             </div>
@@ -115,7 +115,7 @@ export default function RejectOrderSheet({
               onClick={() => !submitting && onClose?.()}
               disabled={submitting}
               aria-label="إغلاق"
-              className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 transition cursor-pointer disabled:opacity-50"
+              className="w-8 h-8 rounded-[4px] border border-[#D2D6DB] bg-white hover:bg-[#F3F4F6] text-[#161616] flex items-center justify-center dga-btn-motion cursor-pointer disabled:opacity-50"
             >
               <Icons.Close className="w-4 h-4" />
             </button>
@@ -125,12 +125,12 @@ export default function RejectOrderSheet({
         <form onSubmit={handleConfirmReject} className="p-5 sm:p-6 space-y-4 overflow-y-auto">
           <ErrorBanner err={err} />
 
-          <div className="rounded-2xl border border-rose-200 bg-rose-50/70 p-3.5 text-xs text-rose-900 space-y-1">
-            <p className="font-bold">
+          <div className="rounded-[8px] border border-[#FECDCA] border-s-4 border-s-[#B42318] bg-[#FEF3F2] p-3.5 text-xs text-[#1F2A37] space-y-1">
+            <p className="font-semibold">
               سيتم رفض طلب ({formatOrderAmount(order.quantity)} {order.unit_name}) بقيمة{' '}
               <span className="font-mono" dir="ltr">{formatOrderPrice(order.total_price)}</span> ريال.
             </p>
-            <p className="text-[11px] text-rose-800">
+            <p className="text-[11px] text-[#B42318]">
               ستُعاد الكمية المحجوزة ({formatOrderAmount(restoredUnits)} وحدة أساسية) تلقائياً إلى الرصيد المتاح في المخزون.
             </p>
           </div>
@@ -138,7 +138,7 @@ export default function RejectOrderSheet({
           <div>
             <div className="flex items-center justify-between">
               <Label htmlFor="provider-reject-reason">سبب الرفض لإشعار المستفيد (اختياري)</Label>
-              <span className="text-[11px] font-mono text-slate-400" dir="ltr">
+              <span className="text-[11px] font-mono text-[#6C737F]" dir="ltr">
                 {reason.length}/500
               </span>
             </div>
@@ -149,10 +149,10 @@ export default function RejectOrderSheet({
                   key={preset}
                   type="button"
                   onClick={() => setReason(preset)}
-                  className={`px-2.5 py-1 rounded-lg border text-[11px] font-bold transition cursor-pointer ${
+                  className={`px-2.5 py-1 rounded-[4px] border text-[11px] font-medium dga-btn-motion cursor-pointer ${
                     reason === preset
-                      ? 'border-rose-600 bg-rose-50 text-rose-800'
-                      : 'border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-600'
+                      ? 'border-[#B42318] bg-[#FEF3F2] text-[#B42318] font-semibold'
+                      : 'border-[#D2D6DB] bg-[#F9FAFB] hover:bg-[#F3F4F6] text-[#384250]'
                   }`}
                 >
                   {preset}
@@ -167,7 +167,7 @@ export default function RejectOrderSheet({
               value={reason}
               onChange={(e) => setReason(e.target.value)}
               placeholder="مثال: خارج نطاق التوصيل أو انتهاء الدوام..."
-              className="w-full rounded-xl border border-slate-200 bg-white p-3 text-xs text-slate-800 outline-none transition focus:border-rose-500 focus:ring-2 focus:ring-rose-500/20"
+              className="w-full rounded-[4px] border border-[#9DA4AE] bg-white p-3 text-xs text-[#161616] placeholder:text-[#6C737F] outline-none transition-colors duration-150 focus:border-[#B42318] focus:ring-2 focus:ring-[#B42318]/15"
             />
           </div>
 
@@ -175,7 +175,7 @@ export default function RejectOrderSheet({
             <button
               type="submit"
               disabled={submitting}
-              className="flex-1 min-h-[48px] rounded-xl bg-rose-600 hover:bg-rose-700 active:bg-rose-800 text-white text-sm font-bold transition shadow-sm flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+              className="flex-1 min-h-[44px] px-4 rounded-[4px] bg-[#B42318] hover:bg-[#912018] active:bg-[#7A271A] text-white text-sm font-medium dga-btn-motion flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {submitting ? (
                 <>
@@ -194,7 +194,7 @@ export default function RejectOrderSheet({
               type="button"
               onClick={onClose}
               disabled={submitting}
-              className="min-h-[48px]"
+              className="min-h-[44px]"
             >
               تراجع
             </SecondaryBtn>

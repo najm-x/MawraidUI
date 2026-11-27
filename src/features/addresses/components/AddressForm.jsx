@@ -38,7 +38,6 @@ export default function AddressForm({ addresses, onSaved, onSessionExpired }) {
     setLocating(false)
     setLocationError('')
     setConfirmed(null)
-    // Leaflet can report a longitude from an adjacent copy of the map.
     const longitude = Math.abs(lng) <= 180 ? lng : lng - 360 * Math.floor((lng + 180) / 360)
     setPin({ lat, lng: longitude })
   }
@@ -99,7 +98,7 @@ export default function AddressForm({ addresses, onSaved, onSessionExpired }) {
   }
 
   return (
-    <form onSubmit={submit} className="rounded-2xl border border-slate-200 bg-white p-4 sm:p-6 shadow-xs" noValidate>
+    <form onSubmit={submit} className="dga-card p-5 sm:p-6 fade-in" noValidate>
       <ErrorBanner err={saveError} />
       <fieldset disabled={saving} className="min-w-0 space-y-5">
         <div>
@@ -113,7 +112,7 @@ export default function AddressForm({ addresses, onSaved, onSessionExpired }) {
             aria-invalid={Boolean(errors.title)}
             aria-describedby={errors.title ? 'address-title-error' : undefined}
           />
-          {errors.title && <p id="address-title-error" className="mt-2 text-sm text-rose-700" role="alert">{errors.title}</p>}
+          {errors.title && <p id="address-title-error" className="mt-1.5 text-xs font-medium text-[#B42318]" role="alert">{errors.title}</p>}
         </div>
 
         <div>
@@ -127,15 +126,19 @@ export default function AddressForm({ addresses, onSaved, onSessionExpired }) {
             required
             aria-invalid={Boolean(errors.description)}
             aria-describedby={errors.description ? 'address-description-count address-description-error' : 'address-description-count'}
-            className="w-full rounded-xl border border-slate-300 bg-white p-3 text-slate-800 focus:ring-2 focus:ring-mawarid-500"
+            className={`w-full rounded-[4px] border bg-white p-3 text-sm text-[#161616] placeholder:text-[#6C737F] outline-none transition-colors duration-150 focus:ring-2 ${
+              errors.description
+                ? 'border-[#B42318] bg-[#FEF3F2]/40 focus:border-[#B42318] focus:ring-[#B42318]/15'
+                : 'border-[#9DA4AE] hover:border-[#384250] focus:border-[#1B8354] focus:ring-[#1B8354]/15'
+            }`}
           />
-          <p id="address-description-count" className="text-xs text-slate-600">{addressTextLength(description)} / {ADDRESS_LIMITS.description} حرف</p>
-          {errors.description && <p id="address-description-error" className="mt-2 text-sm text-rose-700" role="alert">{errors.description}</p>}
+          <p id="address-description-count" className="text-xs text-[#6C737F] mt-1">{addressTextLength(description)} / {ADDRESS_LIMITS.description} حرف</p>
+          {errors.description && <p id="address-description-error" className="mt-1.5 text-xs font-medium text-[#B42318]" role="alert">{errors.description}</p>}
         </div>
 
         <section aria-labelledby="address-location-title" className="space-y-3">
-          <h2 id="address-location-title" className="text-sm font-bold text-slate-900">موقع العنوان</h2>
-          <p id="address-map-instructions" className="text-sm text-slate-600">
+          <h2 id="address-location-title" className="text-sm font-bold text-[#1F2A37]">موقع العنوان</h2>
+          <p id="address-map-instructions" className="text-xs sm:text-sm text-[#6C737F]">
             اضغط على الخريطة أو اسحب العلامة لتحديد الموقع. باستخدام لوحة المفاتيح، حرّك الخريطة ثم اضغط Enter لاختيار مركزها.
           </p>
           <div className={saving ? 'pointer-events-none' : undefined} inert={saving ? '' : undefined}>
@@ -149,7 +152,7 @@ export default function AddressForm({ addresses, onSaved, onSessionExpired }) {
               keyboardDescriptionId="address-map-instructions"
             />
           </div>
-          <div className="grid gap-2 sm:grid-cols-2">
+          <div className="grid gap-2.5 sm:grid-cols-2">
             <SecondaryBtn onClick={requestLocation} disabled={locating}>
               {locating ? 'جارٍ تحديد موقعك…' : 'استخدام موقعي الحالي'}
             </SecondaryBtn>
@@ -157,31 +160,37 @@ export default function AddressForm({ addresses, onSaved, onSessionExpired }) {
               تأكيد الموقع
             </SecondaryBtn>
           </div>
-          {locationError && <p className="text-sm text-rose-700" role="alert">{locationError}</p>}
+          {locationError && <p className="text-xs font-medium text-[#B42318]" role="alert">{locationError}</p>}
           {pin && (
-            <p className="flex flex-wrap items-center gap-2 text-sm text-slate-700" role="status">
-              {confirmed ? 'تم تأكيد الموقع' : 'الموقع المحدد بانتظار التأكيد'}
-              <span dir="ltr" className="font-mono text-xs">{pin.lat}, {pin.lng}</span>
+            <p className="flex flex-wrap items-center gap-2 text-xs sm:text-sm text-[#384250] bg-[#F9FAFB] border border-[#E5E7EB] rounded-[4px] px-3 py-2" role="status">
+              <span className={confirmed ? 'font-semibold text-[#067647]' : 'font-medium text-[#B54708]'}>
+                {confirmed ? 'تم تأكيد الموقع' : 'الموقع المحدد بانتظار التأكيد'}
+              </span>
+              <span dir="ltr" className="font-mono text-xs text-[#1F2A37]">{pin.lat}, {pin.lng}</span>
             </p>
           )}
-          {errors.location && <p className="text-sm text-rose-700" role="alert">{errors.location}</p>}
+          {errors.location && <p className="text-xs font-medium text-[#B42318]" role="alert">{errors.location}</p>}
         </section>
 
-        <div className="rounded-xl bg-mawarid-50 p-3 text-sm text-slate-700">
+        <div className="rounded-[8px] border border-[#B8EACB] bg-[#F3FCF6] p-3.5 text-sm text-[#384250]">
           {firstAddress ? (
             <p>سيُحفظ عنوانك الأول تلقائياً كعنوان افتراضي.</p>
           ) : (
             <>
-              <label className="flex min-h-[44px] items-center gap-2 font-bold text-slate-900">
+              <label className="flex min-h-[44px] items-center gap-2.5 font-semibold text-[#1F2A37] cursor-pointer">
                 <input
                   type="checkbox"
                   checked={isDefault}
                   onChange={(event) => setIsDefault(event.target.checked)}
-                  className="h-5 w-5 shrink-0 accent-mawarid-700"
+                  className="h-4 w-4 shrink-0 rounded-[2px] accent-[#1B8354]"
                 />
                 تعيين كعنوان افتراضي
               </label>
-              {currentDefault && <p className="break-words">العنوان الافتراضي الحالي <bdi>{currentDefault.title || currentDefault.description}</bdi></p>}
+              {currentDefault && (
+                <p className="break-words text-xs text-[#6C737F]">
+                  العنوان الافتراضي الحالي <bdi className="font-medium text-[#1F2A37]">{currentDefault.title || currentDefault.description}</bdi>
+                </p>
+              )}
             </>
           )}
         </div>

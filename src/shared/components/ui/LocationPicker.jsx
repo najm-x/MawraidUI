@@ -79,7 +79,7 @@ export default function LocationPicker({
   const interactive = !readOnly && typeof onChange === 'function'
 
   return (
-    <div className="rounded-xl overflow-hidden border border-slate-200 relative z-0" style={{ height }} dir="ltr">
+    <div className="rounded-[8px] overflow-hidden border border-[#D2D6DB] relative z-0" style={{ height }} dir="ltr">
       <MapContainer
         center={position || initialCenter}
         zoom={position ? 16 : initialZoom}
@@ -94,7 +94,7 @@ export default function LocationPicker({
           <PickHandler onPick={onChange} keyboardLabel={keyboardLabel} keyboardDescriptionId={keyboardDescriptionId} />
         )}
         <Recenter position={position} />
-        {position && accuracy != null && <Circle center={position} radius={accuracy} pathOptions={{ weight: 1 }} />}
+        {position && accuracy != null && <Circle center={position} radius={accuracy} pathOptions={{ weight: 1, color: '#1B8354' }} />}
         {position && (
           <Marker
             position={position}

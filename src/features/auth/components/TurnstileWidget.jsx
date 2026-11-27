@@ -3,10 +3,6 @@ import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 're
 const TURNSTILE_SCRIPT_ID = 'cf-turnstile-script'
 const TURNSTILE_SRC = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
 
-/**
- * Loads the Cloudflare Turnstile script idempotently.
- * Returns a promise that resolves when window.turnstile is available.
- */
 function loadTurnstileScript() {
   return new Promise((resolve, reject) => {
     if (typeof window === 'undefined') return resolve(null)
@@ -43,21 +39,12 @@ function loadTurnstileScript() {
     script.addEventListener('load', onScriptLoad, { once: true })
     script.addEventListener('error', () => reject(new Error('Failed to load Cloudflare Turnstile script.')), { once: true })
 
-    // In case script was already added and loaded
     if (window.turnstile) {
       resolve(window.turnstile)
     }
   })
 }
 
-/**
- * Clean Code Turnstile Widget Component
- *
- * Encapsulates:
- * - Single Responsibility Principle: Script lifecycle, DOM rendering, callback bindings, cleanup.
- * - Single-use token lifecycle: Exposes imperative `reset()` method via ref.
- * - Arabic RTL localization & theme configuration.
- */
 export const TurnstileWidget = forwardRef(function TurnstileWidget(
   {
     siteKey = '1x00000000000000000000AA',
@@ -75,7 +62,6 @@ export const TurnstileWidget = forwardRef(function TurnstileWidget(
   const widgetIdRef = useRef(null)
   const [loadError, setLoadError] = useState(null)
 
-  // Expose imperative API for single-use token lifecycle management
   useImperativeHandle(ref, () => ({
     reset: () => {
       if (widgetIdRef.current && window.turnstile) {
@@ -102,7 +88,6 @@ export const TurnstileWidget = forwardRef(function TurnstileWidget(
       .then((turnstile) => {
         if (isCancelled || !containerRef.current || !turnstile) return
 
-        // Clean up previous widget instance if container is being re-used
         if (widgetIdRef.current) {
           try {
             turnstile.remove(widgetIdRef.current)
@@ -148,7 +133,7 @@ export const TurnstileWidget = forwardRef(function TurnstileWidget(
     <div className={`my-3 flex flex-col items-center justify-center ${className}`}>
       <div ref={containerRef} className="cf-turnstile min-h-[65px] flex items-center justify-center" />
       {loadError && (
-        <p className="mt-1 text-xs text-rose-500 font-medium">
+        <p className="mt-1 text-xs text-[#B42318] font-medium">
           تعذر تحميل نظام التحقق الأمني: {loadError}
         </p>
       )}

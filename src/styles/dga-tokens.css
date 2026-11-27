@@ -1,0 +1,433 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   DGA "Platforms Code" (PC 1.0) — Three-Layer Design Token System & Motion
+   Source: DESIGN_SYSTEM_DGA.md (Figma key 1E6uBnxKVBxLv0G2qLbADy)
+   Architecture: Primitive → Semantic / Theme → Component
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── 1. Primitive Tokens ── */
+  --primitive-sa-flag-900: #074d31;
+  --primitive-sa-flag-800: #14573a;
+  --primitive-sa-flag-700: #166a44;
+  --primitive-sa-flag-600: #1b8354;
+  --primitive-sa-flag-400: #54c08a;
+  --primitive-sa-flag-200: #b8eacb;
+  --primitive-sa-flag-100: #dcfae6;
+  --primitive-sa-flag-50: #f3fcf6;
+
+  --primitive-gold-700: #b54708;
+  --primitive-gold-600: #dba102;
+  --primitive-gold-400: #fdb022;
+  --primitive-gold-200: #fedf89;
+  --primitive-gold-50: #fffaeb;
+
+  --primitive-red-700: #b42318;
+  --primitive-red-600: #d92d20;
+  --primitive-red-200: #fecdca;
+  --primitive-red-50: #fef3f2;
+
+  --primitive-blue-700: #175cd3;
+  --primitive-blue-200: #b2ddff;
+  --primitive-blue-50: #eff8ff;
+
+  --primitive-green-status-700: #067647;
+  --primitive-green-status-200: #abefc6;
+  --primitive-green-status-50: #ecfdf3;
+
+  --primitive-base-white: #ffffff;
+  --primitive-base-black: #161616;
+  --primitive-neutral-950: #0d121c;
+  --primitive-neutral-800: #1f2a37;
+  --primitive-neutral-700: #384250;
+  --primitive-neutral-600: #4d5761;
+  --primitive-neutral-500: #6c737f;
+  --primitive-neutral-400: #9da4ae;
+  --primitive-neutral-300: #d2d6db;
+  --primitive-neutral-200: #e5e7eb;
+  --primitive-neutral-100: #f3f4f6;
+  --primitive-neutral-50: #f9fafb;
+
+  /* ── 2. Semantic & Theme Tokens (Light Mode — Verified from DGA Get Started) ── */
+  --font-family-display: "IBM Plex Sans Arabic", system-ui, -apple-system, sans-serif;
+  --font-family-text: "IBM Plex Sans Arabic", system-ui, -apple-system, sans-serif;
+  --font-family-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* Preserving Figma source token naming including documented `Font Wieght` alias */
+  --font-wieght-regular: 400;
+  --font-wieght-medium: 500;
+  --font-wieght-semibold: 600;
+  --font-wieght-bold: 700;
+
+  --background-sa-flag: var(--primitive-sa-flag-900);
+  --background-white: var(--primitive-base-white);
+  --background-card: var(--primitive-base-white);
+  --background-neutral-50: var(--primitive-neutral-50);
+  --background-neutral-100: var(--primitive-neutral-100);
+  --background-primary-50: var(--primitive-sa-flag-50);
+  --background-warning-50: var(--primitive-gold-50);
+  --background-error-50: var(--primitive-red-50);
+  --background-info-50: var(--primitive-blue-50);
+  --background-success-50: var(--primitive-green-status-50);
+
+  --text-oncolor-primary: var(--primitive-base-white);
+  --text-primary: var(--primitive-sa-flag-600);
+  --text-primary-sa-flag: var(--primitive-sa-flag-800);
+  --text-display: var(--primitive-neutral-800);
+  --text-default: var(--primitive-base-black);
+  --text-primary-paragraph: var(--primitive-neutral-700);
+  --text-secondary-paragraph: var(--primitive-neutral-500);
+  --text-default-disabled: var(--primitive-neutral-400);
+  --text-error: var(--primitive-red-700);
+
+  --border-primary: var(--primitive-sa-flag-600);
+  --border-primary-light: var(--primitive-sa-flag-200);
+  --border-secondary: var(--primitive-gold-600);
+  --border-neutral-primary: var(--primitive-neutral-300);
+  --border-neutral-secondary: var(--primitive-neutral-200);
+  --control-border: var(--primitive-neutral-500);
+
+  --icon-default: var(--primitive-base-black);
+  --icon-default-400: var(--primitive-neutral-400);
+  --icon-oncolor: var(--primitive-base-white);
+  --icon-success: var(--primitive-green-status-700);
+  --icon-warning: var(--primitive-gold-700);
+  --icon-error: var(--primitive-red-700);
+  --alpha-black-10: #0000001a;
+
+  /* Spacing Scale (4px base) */
+  --spacing-none: 0px;
+  --spacing-xs: 4px;
+  --spacing-md: 8px;
+  --spacing-lg: 12px;
+  --spacing-xl: 16px;
+  --spacing-2xl: 20px;
+  --spacing-3xl: 24px;
+  --spacing-4xl: 32px;
+  --spacing-5xl: 40px;
+  --spacing-6xl: 48px;
+  --spacing-7xl: 64px;
+  --spacing-8xl: 80px;
+
+  /* Radius Scale (DGA Verified) */
+  --radius-none: 0px;
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  /* Widths */
+  --width-2xl: 1024px;
+
+  /* Typography Scale */
+  --size-display-xl: 60px;
+  --lh-display-xl: 72px;
+  --size-display-sm: 30px;
+  --lh-display-sm: 38px;
+  --size-display-xs: 24px;
+  --lh-display-xs: 32px;
+  --size-text-xl: 20px;
+  --lh-text-xl: 30px;
+  --size-text-md: 16px;
+  --lh-text-md: 24px;
+  --size-text-sm: 14px;
+  --lh-text-sm: 20px;
+
+  /* ── 3. Component Tokens ── */
+  --button-background-primary-default: var(--primitive-sa-flag-600);
+  --button-background-primary-hovered: var(--primitive-sa-flag-700);
+  --button-background-primary-pressed: var(--primitive-sa-flag-900);
+  --button-background-neutral-default: var(--primitive-neutral-100);
+  --buttons-lg-padding: 16px;
+  --buttons-lg-gap: 4px;
+
+  --field-background-default: var(--primitive-base-white);
+  --field-border-default: var(--primitive-neutral-400);
+  --field-border-error: var(--primitive-red-700);
+  --field-text-label: var(--primitive-base-black);
+  --field-label-gap: 8px;
+
+  --card-lg-gap: 24px;
+  --notification-padding: 16px;
+  --notification-h-padding: 24px;
+  --notification-gap: 16px;
+
+  --tag-background-neutral-light: var(--primitive-neutral-50);
+  --tag-background-neutral: var(--primitive-neutral-600);
+  --tag-text-neutral: var(--primitive-neutral-800);
+
+  /* ── 4. Motion & Easing Tokens ── */
+  --ease-dga-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-dga-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-dga-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast: 150ms;
+  --duration-normal: 240ms;
+  --duration-Entrance: 320ms;
+
+  /* Subtle DGA Elevation */
+  --shadow-dga-xs: 0 1px 2px 0 rgba(16, 24, 40, 0.04);
+  --shadow-dga-sm: 0 1px 3px 0 rgba(16, 24, 40, 0.06), 0 1px 2px -1px rgba(16, 24, 40, 0.04);
+  --shadow-dga-md: 0 4px 12px -2px rgba(16, 24, 40, 0.07), 0 2px 4px -2px rgba(16, 24, 40, 0.04);
+  --shadow-dga-lg: 0 12px 24px -6px rgba(16, 24, 40, 0.10), 0 4px 8px -4px rgba(16, 24, 40, 0.05);
+}
+
+[data-theme="dark"] {
+  --background-sa-flag: #1b8354;
+  --background-white: #0d121c;
+  --background-card: #1f2a37;
+  --background-primary-50: #1b83541a;
+  --background-warning-50: #b5470833;
+  --tag-background-neutral-light: #1f2a37;
+  --text-primary: #54c08a;
+  --text-display: #f9fafb;
+  --text-default: #f9fafb;
+  --text-secondary-paragraph: #e5e7eb;
+  --border-primary-light: #abefc6;
+  --border-neutral-secondary: #384250;
+  --icon-warning: #fdb022;
+}
+
+/* ── Base Typography & Reset Refinements ── */
+html {
+  font-family: var(--font-family-text);
+  background-color: var(--background-neutral-50);
+  color: var(--text-display);
+}
+
+body {
+  font-family: var(--font-family-text);
+  background-color: var(--background-neutral-50);
+  color: var(--text-display);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, .dga-display {
+  font-family: var(--font-family-display);
+  letter-spacing: -0.02em;
+}
+
+section[id] {
+  scroll-margin-top: 5.5rem;
+}
+
+input, select, textarea {
+  font-size: 16px;
+}
+
+/* Accessible DGA Focus Ring */
+:focus-visible {
+  outline: 2px solid var(--primitive-base-black);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: none;
+}
+
+/* Skip Link (DGA Primary Green) */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  inset-inline-start: 1rem;
+  z-index: 100;
+  background: var(--background-sa-flag);
+  color: var(--text-oncolor-primary);
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  transition: top var(--duration-normal) var(--ease-dga-out);
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* ── DGA Architectural Surfaces & Patterns ── */
+.dga-hero-banner {
+  background-color: var(--background-sa-flag);
+  color: var(--text-oncolor-primary);
+  border-radius: var(--radius-xl);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle geometric architectural grid on SA-Flag green banners (no AI glow blobs) */
+.dga-banner-pattern {
+  background-image:
+    linear-gradient(to left, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.dga-canvas-grid {
+  background-image: radial-gradient(circle at 1px 1px, rgba(7, 77, 49, 0.07) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+.dga-card {
+  background-color: var(--background-card);
+  border: 1px solid var(--border-neutral-secondary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-dga-xs);
+  transition:
+    border-color var(--duration-normal) var(--ease-dga-out),
+    box-shadow var(--duration-normal) var(--ease-dga-out),
+    transform var(--duration-normal) var(--ease-dga-out);
+}
+
+.dga-card-interactive {
+  background-color: var(--background-card);
+  border: 1px solid var(--border-neutral-secondary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-dga-xs);
+  transition:
+    border-color var(--duration-normal) var(--ease-dga-out),
+    box-shadow var(--duration-normal) var(--ease-dga-out),
+    transform var(--duration-normal) var(--ease-dga-out);
+}
+
+.dga-card-interactive:hover {
+  border-color: var(--border-primary);
+  box-shadow: var(--shadow-dga-md);
+  transform: translateY(-2px);
+}
+
+.dga-card-interactive:active {
+  transform: translateY(0);
+}
+
+.dga-callout-warning {
+  background-color: var(--background-warning-50);
+  border: 1px solid var(--primitive-gold-200);
+  border-inline-start: 4px solid var(--border-secondary);
+  border-radius: var(--radius-md);
+}
+
+/* ── Smooth, Purposeful Motion & Stagger Choreography ── */
+@keyframes dgaPageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes dgaFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes dgaScaleIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes dgaSheetUp {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes dgaBackdropIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes dgaToastIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 14px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+}
+
+.dga-page-enter {
+  animation: dgaPageEnter var(--duration-Entrance) var(--ease-dga-out) both;
+}
+
+.fade-in {
+  animation: dgaFadeIn 260ms var(--ease-dga-out) both;
+}
+
+.dga-menu-in {
+  animation: dgaScaleIn 180ms var(--ease-dga-out) both;
+}
+
+.sheet-up {
+  animation: dgaSheetUp 300ms var(--ease-dga-spring) both;
+}
+
+.dga-backdrop-in {
+  animation: dgaBackdropIn 220ms var(--ease-dga-standard) both;
+}
+
+.dga-toast-in {
+  animation: dgaToastIn 260ms var(--ease-dga-spring) both;
+}
+
+/* Staggered children entrance for grids & lists */
+.dga-stagger > * {
+  animation: dgaFadeIn 320ms var(--ease-dga-out) both;
+}
+.dga-stagger > *:nth-child(1) { animation-delay: 20ms; }
+.dga-stagger > *:nth-child(2) { animation-delay: 60ms; }
+.dga-stagger > *:nth-child(3) { animation-delay: 100ms; }
+.dga-stagger > *:nth-child(4) { animation-delay: 140ms; }
+.dga-stagger > *:nth-child(5) { animation-delay: 180ms; }
+.dga-stagger > *:nth-child(6) { animation-delay: 220ms; }
+
+/* Tactile button interaction without layout shift */
+.dga-btn-motion {
+  transition:
+    background-color var(--duration-fast) var(--ease-dga-standard),
+    border-color var(--duration-fast) var(--ease-dga-standard),
+    color var(--duration-fast) var(--ease-dga-standard),
+    box-shadow var(--duration-fast) var(--ease-dga-standard),
+    transform 120ms var(--ease-dga-out);
+}
+.dga-btn-motion:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

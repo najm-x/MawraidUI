@@ -14,13 +14,13 @@ function AddressList({ onAdd, onDetails, onSessionExpired }) {
   return (
     <>
       {query.data && (
-        <PrimaryBtn onClick={() => onAdd(query.data)} className="sm:w-auto sm:px-5">
+        <PrimaryBtn onClick={() => onAdd(query.data)} className="!mt-0 sm:w-auto sm:px-5">
           <Icons.MapPin className="w-4 h-4" />
           إضافة عنوان
         </PrimaryBtn>
       )}
       <AddressResults query={query} emptyMessage="لا توجد عناوين محفوظة. أضف عنوانك الأول.">
-        <div className="grid gap-3">
+        <div className="grid gap-3.5 dga-stagger">
           {query.data?.map((address) => (
             <AddressCard
               key={address.id}

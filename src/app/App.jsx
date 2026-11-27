@@ -154,8 +154,10 @@ function Shell() {
   const current = resolveCurrentScreen(screen, user)
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800 font-sans flex flex-col selection:bg-mawarid-700 selection:text-white">
-      {screens[current] || <HomePage go={go} />}
+    <div className="min-h-screen bg-[#F9FAFB] text-[#1F2A37] font-sans flex flex-col selection:bg-[#1B8354] selection:text-white">
+      <div key={current} className="dga-page-enter flex-1 flex flex-col">
+        {screens[current] || <HomePage go={go} />}
+      </div>
       <Toast toast={toast} />
     </div>
   )

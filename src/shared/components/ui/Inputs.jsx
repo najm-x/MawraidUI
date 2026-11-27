@@ -1,7 +1,7 @@
 export function Label({ children, req, htmlFor }) {
   return (
-    <label htmlFor={htmlFor} className="block text-[13px] font-bold text-slate-700 mb-1.5 mt-3.5 first:mt-0">
-      {children} {req && <span className="text-rose-500 font-bold">*</span>}
+    <label htmlFor={htmlFor} className="block text-[14px] leading-5 font-medium text-[#161616] mb-2 mt-4 first:mt-0">
+      {children} {req && <span className="text-[#B42318] font-semibold">*</span>}
     </label>
   )
 }
@@ -9,7 +9,10 @@ export function Label({ children, req, htmlFor }) {
 export function PhoneInput({ value, onChange, error, id = 'phone' }) {
   return (
     <div className="flex gap-2">
-      <span className="flex items-center justify-center rounded-xl border border-slate-200 bg-slate-100 px-3.5 text-sm font-bold text-slate-700 select-none shadow-sm" dir="ltr">
+      <span
+        className="flex items-center justify-center rounded-[4px] border border-[#9DA4AE] bg-[#F3F4F6] px-3.5 text-sm font-medium font-mono text-[#161616] select-none"
+        dir="ltr"
+      >
         +967
       </span>
       <input
@@ -20,8 +23,10 @@ export function PhoneInput({ value, onChange, error, id = 'phone' }) {
         onChange={(e) => onChange(e.target.value.replace(/\D/g, '').slice(0, 9))}
         placeholder="7XXXXXXXX"
         dir="ltr"
-        className={`flex-1 min-h-[48px] rounded-xl border bg-white px-3.5 text-left font-mono text-base font-semibold outline-none transition shadow-sm placeholder:text-slate-400 placeholder:font-sans focus:ring-2 focus:ring-mawarid-600/20 ${
-          error ? 'border-rose-300 bg-rose-50/50 focus:border-rose-500' : 'border-slate-200 hover:border-slate-300 focus:border-mawarid-600'
+        className={`flex-1 min-h-[44px] rounded-[4px] border bg-white px-3.5 text-left font-mono text-base font-medium text-[#161616] outline-none transition-colors duration-150 placeholder:text-[#6C737F] placeholder:font-sans focus:ring-2 ${
+          error
+            ? 'border-[#B42318] bg-[#FEF3F2]/40 focus:border-[#B42318] focus:ring-[#B42318]/15'
+            : 'border-[#9DA4AE] hover:border-[#384250] focus:border-[#1B8354] focus:ring-[#1B8354]/15'
         }`}
       />
     </div>
@@ -36,8 +41,10 @@ export function TextInput({ id, type = 'text', placeholder, value, onChange, cla
       placeholder={placeholder}
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className={`w-full min-h-[48px] rounded-xl border bg-white px-3.5 text-slate-800 text-sm font-medium outline-none transition shadow-sm placeholder:text-slate-400 focus:ring-2 focus:ring-mawarid-600/20 ${
-        error ? 'border-rose-300 bg-rose-50/50 focus:border-rose-500' : 'border-slate-200 hover:border-slate-300 focus:border-mawarid-600'
+      className={`w-full min-h-[44px] rounded-[4px] border bg-white px-3.5 text-[#161616] text-sm font-normal outline-none transition-colors duration-150 placeholder:text-[#6C737F] focus:ring-2 disabled:bg-[#F3F4F6] disabled:text-[#9DA4AE] ${
+        error
+          ? 'border-[#B42318] bg-[#FEF3F2]/40 focus:border-[#B42318] focus:ring-[#B42318]/15'
+          : 'border-[#9DA4AE] hover:border-[#384250] focus:border-[#1B8354] focus:ring-[#1B8354]/15'
       } ${className}`}
       {...props}
     />

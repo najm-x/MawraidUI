@@ -1,4 +1,4 @@
-// ═══════════ شاشة إدارة الطلبات الواردة لمزود الخدمة مع ملخص المخزون والفلاتر ═══════════
+// ═══════════ شاشة إدارة الطلبات الواردة لمزود الخدمة — DGA Design System ═══════════
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { ordersApi, stockApi } from '../../../services/api'
 import { BackBtn, ErrorBanner, Icons, SecondaryBtn } from '../../../shared/components/ui'
@@ -98,7 +98,6 @@ export default function ProviderOrdersPage({
     return map
   }, [stocks])
 
-  // إحصائيات حية من GET /api/v1/stocks/me للمخزون المختار أو جميع مخازن المزود
   const summaryCounters = useMemo(() => {
     const relevant = stockIdFilter
       ? stocks.filter((s) => s.id === stockIdFilter)
@@ -184,9 +183,9 @@ export default function ProviderOrdersPage({
   }
 
   return (
-    <div dir="rtl" className="min-h-screen bg-slate-50 text-slate-800 flex flex-col font-sans">
+    <div dir="rtl" className="min-h-screen bg-[#F9FAFB] text-[#1F2A37] flex flex-col font-sans">
       {/* ── الترويسة ── */}
-      <header className="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs">
+      <header className="bg-white border-b border-[#E5E7EB] sticky top-0 z-30">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3 min-w-0">
             <BackBtn
@@ -198,10 +197,10 @@ export default function ProviderOrdersPage({
               label={initialStockId ? 'إدارة المخزون' : 'لوحة التحكم'}
             />
             <div className="min-w-0">
-              <h1 className="text-lg sm:text-xl font-black text-slate-900 truncate">
+              <h1 className="text-lg sm:text-xl font-bold text-[#1F2A37] truncate">
                 الطلبات الواردة للمزود
               </h1>
-              <p className="text-xs text-slate-500 truncate">
+              <p className="text-xs text-[#6C737F] truncate">
                 قبول، رفض، وإتمام تسليم طلبات المستفيدين
               </p>
             </div>
@@ -212,7 +211,7 @@ export default function ProviderOrdersPage({
             onClick={refreshAll}
             disabled={loading}
             aria-label="تحديث البيانات"
-            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold transition cursor-pointer disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 min-h-[38px] px-3 rounded-[4px] border border-[#D2D6DB] bg-white hover:bg-[#F3F4F6] text-[#161616] text-xs font-medium dga-btn-motion cursor-pointer disabled:opacity-50"
           >
             <Icons.Refresh className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
             <span className="hidden sm:inline">تحديث</span>
@@ -222,43 +221,43 @@ export default function ProviderOrdersPage({
 
       {/* ── المحتوى ── */}
       <main className="max-w-5xl w-full mx-auto px-4 sm:px-6 py-6 flex-1 space-y-5 text-right">
-        {/* 1) بطاقات الملخص الحية من /stocks/me */}
+        {/* 1) بطاقات الملخص الحية */}
         {summaryCounters && (
-          <section className="grid grid-cols-1 sm:grid-cols-3 gap-4" aria-label="ملخص حالة المخزون والطلبات">
-            <div className="rounded-2xl border border-mawarid-200 bg-white p-4 shadow-xs flex items-center justify-between">
+          <section className="grid grid-cols-1 sm:grid-cols-3 gap-4 dga-stagger" aria-label="ملخص حالة المخزون والطلبات">
+            <div className="dga-card border-s-4 border-s-[#1B8354] p-4 flex items-center justify-between">
               <div>
-                <p className="text-xs font-bold text-slate-500">
+                <p className="text-xs font-medium text-[#6C737F]">
                   {summaryCounters.singleStock ? 'الرصيد المتاح حالياً' : 'إجمالي الأرصدة المتاحة'}
                 </p>
-                <p className="mt-1 text-2xl font-black text-mawarid-800 font-mono" dir="ltr">
+                <p className="mt-1 text-2xl font-bold text-[#074D31] font-mono" dir="ltr">
                   {formatOrderAmount(summaryCounters.available)}
                 </p>
               </div>
-              <div className="w-10 h-10 rounded-xl bg-mawarid-50 text-mawarid-700 flex items-center justify-center shrink-0">
+              <div className="w-10 h-10 rounded-[8px] bg-[#F3FCF6] border border-[#B8EACB] text-[#1B8354] flex items-center justify-center shrink-0">
                 <Icons.Box className="w-5 h-5" />
               </div>
             </div>
 
-            <div className="rounded-2xl border border-amber-200 bg-white p-4 shadow-xs flex items-center justify-between">
+            <div className="dga-card border-s-4 border-s-[#DBA102] p-4 flex items-center justify-between">
               <div>
-                <p className="text-xs font-bold text-slate-500">طلبات قيد الانتظار</p>
-                <p className="mt-1 text-2xl font-black text-amber-700 font-mono" dir="ltr">
+                <p className="text-xs font-medium text-[#6C737F]">طلبات قيد الانتظار</p>
+                <p className="mt-1 text-2xl font-bold text-[#B54708] font-mono" dir="ltr">
                   {formatOrderAmount(summaryCounters.pending)}
                 </p>
               </div>
-              <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
+              <div className="w-10 h-10 rounded-[8px] bg-[#FFFAEB] border border-[#FEDF89] text-[#B54708] flex items-center justify-center shrink-0">
                 <Icons.Clock className="w-5 h-5" />
               </div>
             </div>
 
-            <div className="rounded-2xl border border-emerald-200 bg-white p-4 shadow-xs flex items-center justify-between">
+            <div className="dga-card border-s-4 border-s-[#067647] p-4 flex items-center justify-between">
               <div>
-                <p className="text-xs font-bold text-slate-500">طلبات مكتملة</p>
-                <p className="mt-1 text-2xl font-black text-emerald-700 font-mono" dir="ltr">
+                <p className="text-xs font-medium text-[#6C737F]">طلبات مكتملة</p>
+                <p className="mt-1 text-2xl font-bold text-[#067647] font-mono" dir="ltr">
                   {formatOrderAmount(summaryCounters.completed)}
                 </p>
               </div>
-              <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+              <div className="w-10 h-10 rounded-[8px] bg-[#ECFDF3] border border-[#ABEFC6] text-[#067647] flex items-center justify-center shrink-0">
                 <Icons.Check className="w-5 h-5" />
               </div>
             </div>
@@ -266,25 +265,25 @@ export default function ProviderOrdersPage({
         )}
 
         {/* 2) لوحة الفلاتر */}
-        <section className="rounded-2xl border border-slate-200 bg-white p-4 sm:p-5 shadow-xs space-y-4">
-          <div className="space-y-2">
+        <section className="dga-card p-4 sm:p-5 space-y-4">
+          <div className="space-y-2.5">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-black text-slate-700 flex items-center gap-1.5">
-                <Icons.Filter className="w-3.5 h-3.5 text-mawarid-700" />
+              <span className="text-xs font-semibold text-[#161616] flex items-center gap-1.5">
+                <Icons.Filter className="w-3.5 h-3.5 text-[#1B8354]" />
                 <span>حالة الطلب</span>
               </span>
               {hasActiveFilters && (
                 <button
                   type="button"
                   onClick={resetFilters}
-                  className="text-xs font-bold text-rose-600 hover:underline cursor-pointer"
+                  className="text-xs font-semibold text-[#B42318] hover:underline cursor-pointer"
                 >
                   مسح الفلاتر
                 </button>
               )}
             </div>
 
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-1.5">
               {ORDER_STATUS_FILTERS.map((item) => {
                 const active = statusFilter === item.value
                 return (
@@ -295,10 +294,10 @@ export default function ProviderOrdersPage({
                       setStatusFilter(item.value)
                       setPage(1)
                     }}
-                    className={`px-3 py-1.5 rounded-xl border text-xs font-bold transition cursor-pointer ${
+                    className={`px-3 py-1.5 rounded-[4px] border text-xs font-medium dga-btn-motion cursor-pointer ${
                       active
-                        ? 'border-mawarid-700 bg-mawarid-700 text-white shadow-xs'
-                        : 'border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700'
+                        ? 'border-[#1B8354] bg-[#1B8354] text-white font-semibold'
+                        : 'border-[#D2D6DB] bg-white hover:bg-[#F3FCF6] hover:border-[#1B8354] text-[#384250]'
                     }`}
                   >
                     {item.label}
@@ -308,20 +307,20 @@ export default function ProviderOrdersPage({
             </div>
           </div>
 
-          <div className="pt-3 border-t border-slate-100 grid grid-cols-1 md:grid-cols-2 gap-3 items-center">
+          <div className="pt-3 border-t border-[#E5E7EB] grid grid-cols-1 md:grid-cols-2 gap-3 items-center">
             {/* فلتر صفة المستفيد */}
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="text-xs font-bold text-slate-500">صفة المستفيد:</span>
+            <div className="flex flex-wrap items-center gap-1.5">
+              <span className="text-xs font-medium text-[#6C737F]">صفة المستفيد:</span>
               <button
                 type="button"
                 onClick={() => {
                   setConsumerTypeFilter('')
                   setPage(1)
                 }}
-                className={`px-2.5 py-1 rounded-lg border text-xs font-bold transition cursor-pointer ${
+                className={`px-2.5 py-1 rounded-[4px] border text-xs font-medium dga-btn-motion cursor-pointer ${
                   consumerTypeFilter === ''
-                    ? 'border-mawarid-600 bg-mawarid-50 text-mawarid-800'
-                    : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50'
+                    ? 'border-[#1B8354] bg-[#F3FCF6] text-[#074D31] font-semibold'
+                    : 'border-[#D2D6DB] bg-white text-[#384250] hover:bg-[#F9FAFB]'
                 }`}
               >
                 الكل
@@ -334,10 +333,10 @@ export default function ProviderOrdersPage({
                     setConsumerTypeFilter(opt.value)
                     setPage(1)
                   }}
-                  className={`px-2.5 py-1 rounded-lg border text-xs font-bold transition cursor-pointer ${
+                  className={`px-2.5 py-1 rounded-[4px] border text-xs font-medium dga-btn-motion cursor-pointer ${
                     consumerTypeFilter === opt.value
-                      ? 'border-mawarid-600 bg-mawarid-50 text-mawarid-800'
-                      : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50'
+                      ? 'border-[#1B8354] bg-[#F3FCF6] text-[#074D31] font-semibold'
+                      : 'border-[#D2D6DB] bg-white text-[#384250] hover:bg-[#F9FAFB]'
                   }`}
                 >
                   {opt.shortLabel}
@@ -345,10 +344,10 @@ export default function ProviderOrdersPage({
               ))}
             </div>
 
-            {/* فلتر المخزون (عند تعدد مخازن المزود أو التوجيه من مخزون محدد) */}
+            {/* فلتر المخزون */}
             {stocks.length > 0 && (
               <div className="flex items-center gap-2">
-                <label htmlFor="provider-stock-filter" className="text-xs font-bold text-slate-500 shrink-0">
+                <label htmlFor="provider-stock-filter" className="text-xs font-medium text-[#6C737F] shrink-0">
                   المخزون:
                 </label>
                 <select
@@ -358,7 +357,7 @@ export default function ProviderOrdersPage({
                     setStockIdFilter(e.target.value)
                     setPage(1)
                   }}
-                  className="flex-1 min-h-[38px] rounded-xl border border-slate-200 bg-white px-3 text-xs font-bold text-slate-800 outline-none focus:border-mawarid-600"
+                  className="flex-1 min-h-[38px] rounded-[4px] border border-[#9DA4AE] bg-white px-3 text-xs font-medium text-[#161616] outline-none hover:border-[#384250] focus:border-[#1B8354] focus:ring-2 focus:ring-[#1B8354]/15"
                 >
                   <option value="">جميع المخازن ({stocks.length})</option>
                   {stocks.map((s) => (
@@ -376,7 +375,7 @@ export default function ProviderOrdersPage({
 
         {/* 3) عداد النتائج */}
         {!loading && !err && (
-          <div className="flex items-center justify-between text-xs text-slate-500 px-1">
+          <div className="flex items-center justify-between text-xs text-[#6C737F] px-1">
             <span>
               {total !== undefined && total !== null
                 ? `إجمالي الطلبات: ${formatOrderAmount(total)}`
@@ -388,22 +387,22 @@ export default function ProviderOrdersPage({
 
         {/* 4) قائمة البطاقات */}
         {loading ? (
-          <div className="rounded-2xl border border-slate-200 bg-white p-10 text-center space-y-3">
-            <div className="w-8 h-8 mx-auto border-3 border-mawarid-200 border-t-mawarid-700 rounded-full animate-spin" />
-            <p className="text-sm font-bold text-slate-600">جارٍ تحميل الطلبات الواردة…</p>
+          <div className="dga-card p-10 text-center space-y-3 fade-in">
+            <div className="w-8 h-8 mx-auto border-2 border-[#B8EACB] border-t-[#1B8354] rounded-full animate-spin" />
+            <p className="text-sm font-medium text-[#6C737F]">جارٍ تحميل الطلبات الواردة…</p>
           </div>
         ) : err ? (
-          <div className="rounded-2xl border border-slate-200 bg-white p-6 space-y-4">
+          <div className="dga-card p-6 space-y-4 fade-in">
             <ErrorBanner err={err} />
             <SecondaryBtn onClick={loadOrders}>إعادة المحاولة</SecondaryBtn>
           </div>
         ) : orders.length === 0 ? (
-          <div className="rounded-2xl border border-slate-200 bg-white p-10 text-center space-y-3">
-            <div className="w-12 h-12 mx-auto rounded-2xl bg-slate-100 text-slate-500 flex items-center justify-center">
+          <div className="dga-card p-10 text-center space-y-3 fade-in">
+            <div className="w-12 h-12 mx-auto rounded-[8px] bg-[#F3F4F6] text-[#6C737F] flex items-center justify-center">
               <Icons.ShoppingBag className="w-6 h-6" />
             </div>
-            <h2 className="text-base font-black text-slate-900">لا توجد طلبات واردة مطابقة</h2>
-            <p className="text-xs text-slate-500 max-w-md mx-auto">
+            <h2 className="text-base font-bold text-[#1F2A37]">لا توجد طلبات واردة مطابقة</h2>
+            <p className="text-xs text-[#6C737F] max-w-md mx-auto leading-6">
               {hasActiveFilters
                 ? 'لا توجد طلبات تطابق الفلاتر المختارة حالياً. جرّب مسح الفلاتر لعرض جميع الطلبات.'
                 : 'لم ترد أي طلبات على مخازنك حتى الآن.'}
@@ -415,7 +414,7 @@ export default function ProviderOrdersPage({
             )}
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 dga-stagger">
             {orders.map((order) => {
               const st = stocksMap.get(order.stock_id)
               const stockLabel = st ? st.type?.name || st.address : null
@@ -455,11 +454,11 @@ export default function ProviderOrdersPage({
             </SecondaryBtn>
 
             <div className="text-center">
-              <div className="text-xs font-black text-slate-700">
+              <div className="text-xs font-semibold text-[#1F2A37]">
                 صفحة {page} من {totalPages}
               </div>
               {total !== undefined && total !== null && (
-                <div className="text-[11px] text-slate-400">{formatOrderAmount(total)} طلب</div>
+                <div className="text-[11px] text-[#6C737F]">{formatOrderAmount(total)} طلب</div>
               )}
             </div>
 

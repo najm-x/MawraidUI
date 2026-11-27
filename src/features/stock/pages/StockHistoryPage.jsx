@@ -1,4 +1,4 @@
-// ═══════════ شاشة سجل الحركات — ترقيم + فلترة (الكل / وارد / منصرف) ═══════════
+// ═══════════ شاشة سجل الحركات — ترقيم + فلترة (الكل / وارد / منصرف) — DGA Design System ═══════════
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { ROUTES } from '../../../shared/constants/routes'
 import { stockApi } from '../../../services/api'
@@ -8,7 +8,7 @@ import { StockLoading, StockErrorState, SessionExpiredState, StockEmptyState } f
 import { useStock } from '../hooks/useStock'
 import { formatAmount, formatDateTime, isSessionExpired } from '../utils'
 
-const PAGE_SIZE = 20 // الحد الأقصى 100 حسب العقد
+const PAGE_SIZE = 20
 
 const FILTERS = [
   { key: 'all', label: 'كل الحركات' },
@@ -19,14 +19,14 @@ const FILTERS = [
 export default function StockHistoryPage({ go, stockId: propStockId }) {
   const { status, stock, err, reload } = useStock(propStockId)
 
-  const [filter, setFilter] = useState('all') // 'all' | 'in' | 'out'
+  const [filter, setFilter] = useState('all')
   const [page, setPage] = useState(1)
   const [items, setItems] = useState([])
   const [meta, setMeta] = useState(null)
   const [loading, setLoading] = useState(true)
   const [listErr, setListErr] = useState(null)
 
-  const seqRef = useRef(0) // حماية من تجاوز الاستجابة القديمة للأخيرة
+  const seqRef = useRef(0)
   const stockId = stock?.id
 
   const load = useCallback(async (id, f, p) => {
@@ -39,7 +39,7 @@ export default function StockHistoryPage({ go, stockId: propStockId }) {
         page_size: PAGE_SIZE,
         is_in: f === 'all' ? undefined : f === 'in',
       })
-      if (seq !== seqRef.current) return // استجابة قديمة — تُتجاهل
+      if (seq !== seqRef.current) return
       setItems(Array.isArray(res?.data) ? res.data : [])
       setMeta(res?.meta || null)
     } catch (e) {
@@ -63,13 +63,12 @@ export default function StockHistoryPage({ go, stockId: propStockId }) {
   function changeFilter(key) {
     if (key === filter) return
     setFilter(key)
-    setPage(1) // إعادة الترقيم مع تغيير الفلتر — يُنفَّذ في دفعة واحدة
+    setPage(1)
   }
 
   const totalPages = Number(meta?.total_pages) || 1
   const total = meta?.total
 
-  // ── حالات المخزون ──
   if (status === 'loading' || status === 'error' || status === 'empty') {
     return (
       <StockPage title="سجل الحركات" subtitle="الوارد والمنصرف" go={go} backTo={ROUTES.STOCK_DASHBOARD} backParams={{ stockId: propStockId }} backLabel="لوحة المخزون">
@@ -84,21 +83,26 @@ export default function StockHistoryPage({ go, stockId: propStockId }) {
 
   return (
     <StockPage title="سجل الحركات" subtitle="الوارد والمنصرف" go={go} backTo={ROUTES.STOCK_DASHBOARD} backParams={{ stockId: propStockId }} backLabel="لوحة المخزون">
-      {/* ── الفلاتر ── */}
-      <div className="flex items-center gap-2 p-1.5 rounded-xl bg-slate-100 border border-slate-200 text-xs font-bold" aria-label="فلترة الحركات">
-        {FILTERS.map((f) => (
-          <button
-            key={f.key}
-            type="button"
-            aria-pressed={filter === f.key}
-            onClick={() => changeFilter(f.key)}
-            className={`flex-1 px-3 py-2.5 rounded-lg transition cursor-pointer ${
-              filter === f.key ? 'bg-white text-mawarid-900 shadow-xs font-black' : 'text-slate-600 hover:text-slate-900'
-            }`}
-          >
-            {f.label}
-          </button>
-        ))}
+      {/* ── الفلاتر (DGA Horizontal Tab Switcher) ── */}
+      <div className="flex items-center border-b border-[#D2D6DB] bg-white rounded-t-[8px] px-2 pt-1" aria-label="فلترة الحركات">
+        {FILTERS.map((f) => {
+          const active = filter === f.key
+          return (
+            <button
+              key={f.key}
+              type="button"
+              aria-pressed={active}
+              onClick={() => changeFilter(f.key)}
+              className={`flex-1 px-3 py-3 text-xs sm:text-sm border-b-2 transition-colors duration-150 cursor-pointer ${
+                active
+                  ? 'border-[#1B8354] text-[#1B8354] font-semibold bg-[#F3FCF6]/50'
+                  : 'border-transparent text-[#384250] hover:text-[#161616] font-medium'
+              }`}
+            >
+              {f.label}
+            </button>
+          )
+        })}
       </div>
 
       {/* ── النتائج ── */}
@@ -109,39 +113,41 @@ export default function StockHistoryPage({ go, stockId: propStockId }) {
       ) : listErr ? (
         <StockErrorState err={listErr} onRetry={() => load(stockId, filter, page)} />
       ) : items.length === 0 ? (
-        <div className="rounded-2xl border border-slate-200 bg-white p-8 text-center fade-in">
-          <div className="w-12 h-12 mx-auto rounded-xl bg-slate-100 text-slate-500 flex items-center justify-center mb-3">
+        <div className="dga-card p-8 text-center fade-in">
+          <div className="w-12 h-12 mx-auto rounded-[8px] bg-[#F3F4F6] text-[#6C737F] flex items-center justify-center mb-3">
             <Icons.History className="w-6 h-6" aria-hidden="true" />
           </div>
-          <h2 className="text-base font-black text-slate-900">لا توجد حركات مسجلة</h2>
-          <p className="text-xs text-slate-500 mt-1.5">
+          <h2 className="text-base font-bold text-[#1F2A37]">لا توجد حركات مسجلة</h2>
+          <p className="text-xs text-[#6C737F] mt-1.5">
             {filter === 'all' ? 'ستظهر هنا حركات التوريد والصرف بعد تسجيلها' : 'لا توجد حركات مطابقة لهذا الفلتر'}
           </p>
         </div>
       ) : (
-        <ul className="space-y-3">
+        <ul className="space-y-3 dga-stagger">
           {items.map((t) => (
-            <li key={t.id} className="rounded-2xl border border-slate-200 bg-white p-4 shadow-xs">
+            <li key={t.id} className="dga-card p-4">
               <div className="flex items-start justify-between gap-3">
                 <div className="flex items-start gap-3 min-w-0">
                   <span
-                    className={`shrink-0 px-2.5 py-1 rounded-lg text-[11px] font-black border ${
-                      t.is_in ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : 'bg-rose-50 text-rose-700 border-rose-200'
+                    className={`shrink-0 px-2.5 py-0.5 rounded-full text-[11px] font-semibold border ${
+                      t.is_in
+                        ? 'bg-[#ECFDF3] text-[#067647] border-[#ABEFC6]'
+                        : 'bg-[#FEF3F2] text-[#B42318] border-[#FECDCA]'
                     }`}
                   >
                     {t.is_in ? 'وارد' : 'منصرف'}
                   </span>
                   <div className="min-w-0">
-                    <div className="text-sm font-black text-slate-900">
+                    <div className="text-sm font-bold text-[#1F2A37]">
                       <span className="font-mono" dir="ltr">{formatAmount(t.amount)}</span>{' '}
                       <span>{t.unit?.name || ''}</span>
                     </div>
                     {t.description && (
-                      <p className="text-xs text-slate-500 mt-1 break-words leading-relaxed">{t.description}</p>
+                      <p className="text-xs text-[#6C737F] mt-1 break-words leading-6">{t.description}</p>
                     )}
                   </div>
                 </div>
-                <span className="text-[11px] text-slate-400 shrink-0">{formatDateTime(t.created_at)}</span>
+                <span className="text-[11px] text-[#6C737F] shrink-0">{formatDateTime(t.created_at)}</span>
               </div>
             </li>
           ))}
@@ -162,11 +168,11 @@ export default function StockHistoryPage({ go, stockId: propStockId }) {
           </SecondaryBtn>
 
           <div className="text-center">
-            <div className="text-xs font-black text-slate-700">
+            <div className="text-xs font-semibold text-[#1F2A37]">
               صفحة {page}{page <= totalPages && ` من ${totalPages}`}
             </div>
             {total !== undefined && total !== null && (
-              <div className="text-[11px] text-slate-400">{formatAmount(total)} حركة</div>
+              <div className="text-[11px] text-[#6C737F]">{formatAmount(total)} حركة</div>
             )}
           </div>
 

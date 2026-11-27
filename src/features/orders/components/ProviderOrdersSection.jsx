@@ -1,4 +1,4 @@
-// ═══════════ قسم الطلبات الواردة في لوحة تحكم المزود ═══════════
+// ═══════════ قسم الطلبات الواردة في لوحة تحكم المزود — DGA Design System ═══════════
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { ordersApi } from '../../../services/api'
 import { ErrorBanner, Icons, SecondaryBtn } from '../../../shared/components/ui'
@@ -120,9 +120,9 @@ export default function ProviderOrdersSection({
     <section className="space-y-4 text-right" aria-label="الطلبات الواردة للمزود">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2.5">
-          <h2 className="text-lg font-black text-slate-900">الطلبات الواردة من المستفيدين</h2>
+          <h2 className="text-lg font-bold text-[#1F2A37]">الطلبات الواردة من المستفيدين</h2>
           {meta?.total !== undefined && meta?.total !== null && (
-            <span className="px-2.5 py-0.5 rounded-full bg-mawarid-50 border border-mawarid-200 text-mawarid-800 text-xs font-black font-mono" dir="ltr">
+            <span className="px-2.5 py-0.5 rounded-[4px] bg-[#F3FCF6] border border-[#B8EACB] text-[#074D31] text-xs font-semibold font-mono" dir="ltr">
               {formatOrderAmount(meta.total)}
             </span>
           )}
@@ -134,7 +134,7 @@ export default function ProviderOrdersSection({
             onClick={loadOrders}
             disabled={loading}
             aria-label="تحديث الطلبات الواردة"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold transition cursor-pointer disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 min-h-[36px] px-3 rounded-[4px] border border-[#D2D6DB] bg-white hover:bg-[#F3F4F6] text-[#161616] text-xs font-medium dga-btn-motion cursor-pointer disabled:opacity-50"
           >
             <Icons.Refresh className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
             <span className="hidden sm:inline">تحديث</span>
@@ -143,16 +143,16 @@ export default function ProviderOrdersSection({
           <button
             type="button"
             onClick={() => go(ROUTES.PROVIDER_ORDERS)}
-            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-mawarid-700 hover:bg-mawarid-800 text-white text-xs font-bold transition cursor-pointer"
+            className="group inline-flex items-center gap-1.5 min-h-[36px] px-3.5 rounded-[4px] bg-[#1B8354] hover:bg-[#166A44] text-white text-xs font-medium dga-btn-motion cursor-pointer"
           >
             <span>إدارة كل الطلبات</span>
-            <Icons.ArrowLeft className="w-3.5 h-3.5" />
+            <Icons.ArrowLeft className="w-3.5 h-3.5 transition-transform duration-150 group-hover:-translate-x-0.5" />
           </button>
         </div>
       </div>
 
-      {/* ألسنة تصفية سريعة */}
-      <div className="flex flex-wrap gap-2">
+      {/* ألسنة تصفية سريعة (DGA Horizontal Tab List) */}
+      <div className="flex flex-wrap border-b border-[#D2D6DB] gap-1">
         {QUICK_STATUS_TABS.map((tab) => {
           const active = statusFilter === tab.value
           return (
@@ -160,10 +160,10 @@ export default function ProviderOrdersSection({
               key={tab.value || 'all'}
               type="button"
               onClick={() => setStatusFilter(tab.value)}
-              className={`px-3.5 py-1.5 rounded-xl border text-xs font-bold transition cursor-pointer ${
+              className={`px-4 py-2.5 rounded-t-[4px] border-b-2 text-xs sm:text-sm transition-colors duration-150 cursor-pointer ${
                 active
-                  ? 'border-mawarid-700 bg-mawarid-700 text-white shadow-xs'
-                  : 'border-slate-200 bg-white hover:bg-slate-50 text-slate-700'
+                  ? 'border-[#1B8354] text-[#1B8354] font-semibold bg-[#F3FCF6]/50'
+                  : 'border-transparent text-[#384250] hover:text-[#161616] hover:bg-white font-medium'
               }`}
             >
               {tab.label}
@@ -175,31 +175,31 @@ export default function ProviderOrdersSection({
       <ErrorBanner err={actionErr} />
 
       {loading ? (
-        <div className="rounded-2xl border border-slate-200 bg-white p-8 text-center space-y-2.5">
-          <div className="w-7 h-7 mx-auto border-3 border-mawarid-200 border-t-mawarid-700 rounded-full animate-spin" />
-          <p className="text-xs font-bold text-slate-500">جارٍ تحميل الطلبات الواردة…</p>
+        <div className="dga-card p-8 text-center space-y-2.5 fade-in">
+          <div className="w-7 h-7 mx-auto border-2 border-[#B8EACB] border-t-[#1B8354] rounded-full animate-spin" />
+          <p className="text-xs font-medium text-[#6C737F]">جارٍ تحميل الطلبات الواردة…</p>
         </div>
       ) : err ? (
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 space-y-3">
+        <div className="dga-card p-5 space-y-3 fade-in">
           <ErrorBanner err={err} />
           <SecondaryBtn onClick={loadOrders} className="text-xs">
             إعادة المحاولة
           </SecondaryBtn>
         </div>
       ) : orders.length === 0 ? (
-        <div className="rounded-2xl border border-slate-200 bg-white p-8 text-center space-y-2.5 shadow-xs">
-          <div className="w-12 h-12 mx-auto rounded-2xl bg-slate-100 text-slate-500 flex items-center justify-center">
+        <div className="dga-card p-8 text-center space-y-2.5 fade-in">
+          <div className="w-12 h-12 mx-auto rounded-[8px] bg-[#F3F4F6] text-[#6C737F] flex items-center justify-center">
             <Icons.ShoppingBag className="w-6 h-6" />
           </div>
-          <h3 className="text-sm font-black text-slate-900">
+          <h3 className="text-sm font-bold text-[#1F2A37]">
             {statusFilter ? 'لا توجد طلبات مطابقة لهذه الحالة حالياً' : 'لا توجد طلبات واردة حتى الآن'}
           </h3>
-          <p className="text-xs text-slate-500 max-w-md mx-auto">
+          <p className="text-xs text-[#6C737F] max-w-md mx-auto leading-6">
             ستظهر هنا طلبات المستفيدين الجديدة فور إنشائها لتتمكن من قبولها وإتمام تسليمها.
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 dga-stagger">
           {orders.map((order) => (
             <ProviderOrderCard
               key={order.id}

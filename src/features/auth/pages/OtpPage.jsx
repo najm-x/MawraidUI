@@ -72,7 +72,7 @@ export default function Otp({ go, phone }) {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 py-8 px-4 sm:px-6 flex flex-col justify-between">
+    <div className="min-h-screen bg-[#F9FAFB] dga-canvas-grid py-8 px-4 sm:px-6 flex flex-col justify-between">
       <div className="max-w-md w-full mx-auto">
         <div className="flex items-center justify-between pb-6 mb-2">
           <div className="cursor-pointer" onClick={() => go('home')}>
@@ -81,22 +81,24 @@ export default function Otp({ go, phone }) {
           <BackBtn onClick={() => go('login')} label="تسجيل الدخول" />
         </div>
 
-        <div className="bg-white rounded-3xl border border-slate-200 shadow-xl p-6 sm:p-8 fade-in text-center">
-          <div className="w-14 h-14 mx-auto rounded-2xl bg-sky-50 text-sky-700 flex items-center justify-center mb-4">
-            <Icons.Shield className="w-8 h-8" />
+        <div className="bg-white rounded-[16px] border border-[#E5E7EB] border-t-4 border-t-[#1B8354] shadow-card p-6 sm:p-8 fade-in text-center">
+          <div className="w-12 h-12 mx-auto rounded-[8px] bg-[#F3FCF6] border border-[#B8EACB] text-[#1B8354] flex items-center justify-center mb-4">
+            <Icons.Shield className="w-6 h-6" />
           </div>
 
-          <h1 className="text-2xl font-black text-slate-900 mb-1">التحقق من رقم الجوال</h1>
-          <p className="text-xs text-slate-500 mb-6">
+          <h1 className="text-2xl font-bold text-[#1F2A37] mb-1.5">التحقق من رقم الجوال</h1>
+          <p className="text-xs sm:text-sm text-[#6C737F] mb-6 leading-relaxed">
             خطوة أمان أساسية لتأكيد ملكية رقم الهاتف وإصدار بطاقة المستفيد الرقمية
           </p>
 
-          <InfoBanner>{info}</InfoBanner>
-          <ErrorBanner err={err} />
+          <div className="text-right">
+            <InfoBanner>{info}</InfoBanner>
+            <ErrorBanner err={err} />
+          </div>
 
           <form onSubmit={verify} className="mt-6 space-y-6">
             <div>
-              <label className="block text-xs font-bold text-slate-600 mb-3">أدخل رمز التحقق (6 أرقام):</label>
+              <label className="block text-xs font-medium text-[#384250] mb-3">أدخل رمز التحقق (6 أرقام):</label>
               <div className="flex gap-2 sm:gap-2.5 justify-center" dir="ltr">
                 {digits.map((d, i) => (
                   <input
@@ -107,8 +109,10 @@ export default function Otp({ go, phone }) {
                     maxLength={1}
                     onKeyDown={(e) => onKeyDown(i, e)}
                     onChange={(e) => onDigit(i, e.target.value)}
-                    className={`w-12 h-14 sm:w-13 sm:h-16 rounded-xl border-2 text-center text-xl sm:text-2xl font-black font-mono outline-none transition ${
-                      d ? 'border-mawarid-600 bg-mawarid-50/50 text-mawarid-900' : 'border-slate-200 bg-slate-50 focus:border-mawarid-500 focus:bg-white'
+                    className={`w-12 h-14 sm:w-13 sm:h-15 rounded-[4px] border text-center text-xl sm:text-2xl font-bold font-mono outline-none transition-colors duration-150 focus:ring-2 focus:ring-[#1B8354]/15 ${
+                      d
+                        ? 'border-[#1B8354] bg-[#F3FCF6] text-[#074D31]'
+                        : 'border-[#9DA4AE] bg-white hover:border-[#384250] focus:border-[#1B8354]'
                     }`}
                   />
                 ))}
@@ -128,25 +132,25 @@ export default function Otp({ go, phone }) {
             </PrimaryBtn>
           </form>
 
-          <div className="mt-5 pt-5 border-t border-slate-100">
+          <div className="mt-5 pt-5 border-t border-[#E5E7EB]">
             <button
               onClick={resend}
               disabled={countdown > 0}
-              className="w-full py-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-bold flex items-center justify-center gap-2 transition disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+              className="w-full min-h-[42px] px-4 rounded-[4px] border border-[#D2D6DB] bg-white hover:bg-[#F3F4F6] text-[#161616] text-xs font-medium flex items-center justify-center gap-2 dga-btn-motion disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
             >
-              <Icons.Clock className="w-4 h-4 text-slate-400" />
+              <Icons.Clock className="w-4 h-4 text-[#6C737F]" />
               <span>{countdown > 0 ? `إعادة الإرسال بعد (${countdown} ثانية)` : 'إعادة إرسال رمز التحقق'}</span>
             </button>
           </div>
 
-          <div className="mt-6 p-3 rounded-xl bg-slate-50 border border-slate-100 text-[11px] text-slate-500 leading-relaxed text-right">
-            <div className="font-bold text-slate-700 mb-0.5">تعليمات أمان:</div>
+          <div className="mt-5 dga-callout-warning p-3.5 text-xs text-[#1F2A37] leading-6 text-right">
+            <div className="font-semibold text-[#B54708] mb-0.5">تعليمات أمان:</div>
             • صلاحية الرمز 5 دقائق • بحد أقصى 3 محاولات خاطئة قبل طلب رمز جديد.
           </div>
         </div>
       </div>
 
-      <div className="text-center text-[11px] text-slate-400 py-4">
+      <div className="text-center text-[11px] text-[#6C737F] py-4">
         منصة موارد — مدينة تعز
       </div>
     </div>

@@ -1,4 +1,4 @@
-// ═══════════ شاشة تفاصيل طلب وارد لمزود الخدمة مع إجراءات القبول والرفض والإتمام ═══════════
+// ═══════════ شاشة تفاصيل طلب وارد لمزود الخدمة — DGA Design System ═══════════
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { ordersApi } from '../../../services/api'
 import { BackBtn, ErrorBanner, Icons, SecondaryBtn } from '../../../shared/components/ui'
@@ -133,18 +133,18 @@ export default function ProviderOrderDetailsPage({
       : 'الطلبات الواردة'
 
   return (
-    <div dir="rtl" className="min-h-screen bg-slate-50 text-slate-800 flex flex-col font-sans">
+    <div dir="rtl" className="min-h-screen bg-[#F9FAFB] text-[#1F2A37] flex flex-col font-sans">
       {/* ── الترويسة ── */}
-      <header className="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs">
+      <header className="bg-white border-b border-[#E5E7EB] sticky top-0 z-30">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3 min-w-0">
             <BackBtn onClick={() => go(backTo, backParams)} label={backLabel} />
             <div className="min-w-0">
-              <h1 className="text-lg sm:text-xl font-black text-slate-900 truncate">
+              <h1 className="text-lg sm:text-xl font-bold text-[#1F2A37] truncate">
                 تفاصيل الطلب الوارد
               </h1>
               {order?.order_number && (
-                <p className="text-xs text-slate-500 font-mono truncate" dir="ltr">
+                <p className="text-xs text-[#6C737F] font-mono truncate" dir="ltr">
                   {order.order_number}
                 </p>
               )}
@@ -156,7 +156,7 @@ export default function ProviderOrderDetailsPage({
             onClick={loadOrder}
             disabled={loading}
             aria-label="تحديث بيانات الطلب"
-            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold transition cursor-pointer disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 min-h-[38px] px-3 rounded-[4px] border border-[#D2D6DB] bg-white hover:bg-[#F3F4F6] text-[#161616] text-xs font-medium dga-btn-motion cursor-pointer disabled:opacity-50"
           >
             <Icons.Refresh className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
             <span className="hidden sm:inline">تحديث</span>
@@ -167,12 +167,12 @@ export default function ProviderOrderDetailsPage({
       {/* ── المحتوى ── */}
       <main className="max-w-4xl w-full mx-auto px-4 sm:px-6 py-6 flex-1 space-y-5 text-right">
         {loading ? (
-          <div className="rounded-2xl border border-slate-200 bg-white p-10 text-center space-y-3">
-            <div className="w-8 h-8 mx-auto border-3 border-mawarid-200 border-t-mawarid-700 rounded-full animate-spin" />
-            <p className="text-sm font-bold text-slate-600">جارٍ تحميل تفاصيل الطلب…</p>
+          <div className="dga-card p-10 text-center space-y-3 fade-in">
+            <div className="w-8 h-8 mx-auto border-2 border-[#B8EACB] border-t-[#1B8354] rounded-full animate-spin" />
+            <p className="text-sm font-medium text-[#6C737F]">جارٍ تحميل تفاصيل الطلب…</p>
           </div>
         ) : err ? (
-          <div className="rounded-2xl border border-slate-200 bg-white p-6 space-y-4">
+          <div className="dga-card p-6 space-y-4 fade-in">
             <ErrorBanner err={err} />
             <div className="flex flex-wrap gap-2">
               <SecondaryBtn onClick={loadOrder}>إعادة المحاولة</SecondaryBtn>
@@ -180,8 +180,8 @@ export default function ProviderOrderDetailsPage({
             </div>
           </div>
         ) : !order ? (
-          <div className="rounded-2xl border border-slate-200 bg-white p-10 text-center space-y-3">
-            <p className="text-sm font-bold text-slate-600">لم يتم العثور على هذا الطلب.</p>
+          <div className="dga-card p-10 text-center space-y-3 fade-in">
+            <p className="text-sm font-medium text-[#6C737F]">لم يتم العثور على هذا الطلب.</p>
             <SecondaryBtn onClick={() => go(ROUTES.PROVIDER_ORDERS)}>العودة للطلبات الواردة</SecondaryBtn>
           </div>
         ) : (
@@ -189,64 +189,64 @@ export default function ProviderOrderDetailsPage({
             <ErrorBanner err={actionErr} />
 
             {/* 1) بطاقة الملخص والإجراءات التنفيذية */}
-            <section className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 shadow-xs space-y-5">
+            <section className="dga-card p-5 sm:p-6 space-y-5">
               <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
                 <div className="space-y-2">
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full border text-xs font-black ${statusMeta.badgeClass}`}>
+                    <span className={`inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full border text-xs font-semibold ${statusMeta.badgeClass}`}>
                       <span className={`w-2 h-2 rounded-full ${statusMeta.dotClass}`} />
                       <span>{statusMeta.label}</span>
                     </span>
-                    <span className={`px-2.5 py-1 rounded-full border text-xs font-bold ${payStatusMeta.badgeClass}`}>
+                    <span className={`px-2.5 py-0.5 rounded-[4px] border text-xs font-semibold ${payStatusMeta.badgeClass}`}>
                       {payStatusMeta.label}
                     </span>
                     {gazType && (
-                      <span className="px-2.5 py-1 rounded-full bg-amber-50 border border-amber-200 text-xs font-bold text-amber-800">
+                      <span className="px-2.5 py-0.5 rounded-[4px] bg-[#FFFAEB] border border-[#FEDF89] text-xs font-semibold text-[#B54708]">
                         {gazType}
                       </span>
                     )}
                   </div>
 
-                  <h2 className="text-xl sm:text-2xl font-black text-slate-900 font-mono" dir="ltr">
+                  <h2 className="text-xl sm:text-2xl font-bold text-[#1F2A37] font-mono" dir="ltr">
                     {order.order_number}
                   </h2>
 
-                  <p className="text-xs text-slate-500">
-                    تاريخ ورود الطلب: <strong className="text-slate-700">{formatOrderDateTime(order.created_at)}</strong>
+                  <p className="text-xs text-[#6C737F]">
+                    تاريخ ورود الطلب: <strong className="text-[#1F2A37]">{formatOrderDateTime(order.created_at)}</strong>
                   </p>
                 </div>
 
-                <div className="rounded-2xl bg-mawarid-50/70 border border-mawarid-200 px-4 py-3 text-right sm:text-left shrink-0">
-                  <div className="text-xs font-bold text-mawarid-700">المبلغ المستحق</div>
-                  <div className="text-2xl font-black text-mawarid-950">
+                <div className="rounded-[8px] bg-[#F3FCF6] border border-[#B8EACB] px-4 py-3 text-right sm:text-left shrink-0">
+                  <div className="text-xs font-medium text-[#074D31]">المبلغ المستحق</div>
+                  <div className="text-2xl font-bold text-[#074D31]">
                     <span className="font-mono" dir="ltr">{formatOrderPrice(order.total_price)}</span>{' '}
-                    <span className="text-xs font-bold text-mawarid-800">ريال</span>
+                    <span className="text-xs font-normal text-[#1B8354]">ريال</span>
                   </div>
-                  <div className="text-[11px] font-bold text-slate-600 mt-0.5">
+                  <div className="text-[11px] font-medium text-[#384250] mt-0.5">
                     {formatPaymentMethod(order.payment_method)}
                   </div>
                 </div>
               </div>
 
               {/* شريط اتخاذ القرار للمزود */}
-              <div className="pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
+              <div className="pt-4 border-t border-[#E5E7EB] flex flex-wrap items-center justify-between gap-3">
                 <button
                   type="button"
                   onClick={() => go(ROUTES.STOCK_DASHBOARD, { stockId: order.stock_id })}
-                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-800 text-xs font-bold transition cursor-pointer"
+                  className="inline-flex items-center gap-2 min-h-[38px] px-4 rounded-[4px] border border-[#D2D6DB] bg-white hover:bg-[#F3F4F6] text-[#161616] text-xs font-medium dga-btn-motion cursor-pointer"
                 >
-                  <Icons.Box className="w-4 h-4 text-mawarid-700" />
+                  <Icons.Box className="w-4 h-4 text-[#1B8354]" />
                   <span>إدارة المخزون المرتبط</span>
                 </button>
 
-                <div className="flex flex-wrap items-center gap-2.5">
+                <div className="flex flex-wrap items-center gap-2">
                   {isPending && (
                     <>
                       <button
                         type="button"
                         onClick={handleAccept}
                         disabled={actionBusy}
-                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition shadow-sm cursor-pointer disabled:opacity-60"
+                        className="inline-flex items-center gap-2 min-h-[38px] px-5 rounded-[4px] bg-[#1B8354] hover:bg-[#166A44] active:bg-[#074D31] text-white text-xs font-medium dga-btn-motion cursor-pointer disabled:opacity-60"
                       >
                         {actionBusy ? (
                           <Icons.Refresh className="w-4 h-4 animate-spin" />
@@ -260,7 +260,7 @@ export default function ProviderOrderDetailsPage({
                         type="button"
                         onClick={() => setShowRejectSheet(true)}
                         disabled={actionBusy}
-                        className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-rose-200 bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-bold transition cursor-pointer disabled:opacity-60"
+                        className="inline-flex items-center gap-2 min-h-[38px] px-4 rounded-[4px] border border-[#FECDCA] bg-[#FEF3F2] hover:bg-[#FECDCA]/50 text-[#B42318] text-xs font-semibold dga-btn-motion cursor-pointer disabled:opacity-60"
                       >
                         <Icons.Ban className="w-4 h-4" />
                         <span>رفض الطلب</span>
@@ -273,7 +273,7 @@ export default function ProviderOrderDetailsPage({
                       type="button"
                       onClick={handleComplete}
                       disabled={actionBusy}
-                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-mawarid-700 hover:bg-mawarid-800 text-white text-xs font-bold transition shadow-sm cursor-pointer disabled:opacity-60"
+                      className="inline-flex items-center gap-2 min-h-[38px] px-5 rounded-[4px] bg-[#074D31] hover:bg-[#1B8354] text-white text-xs font-medium dga-btn-motion cursor-pointer disabled:opacity-60"
                     >
                       {actionBusy ? (
                         <Icons.Refresh className="w-4 h-4 animate-spin" />
@@ -288,37 +288,37 @@ export default function ProviderOrderDetailsPage({
             </section>
 
             {/* 2) تفاصيل الكمية وصفة المستفيد */}
-            <section className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 shadow-xs space-y-4">
-              <h3 className="text-base font-black text-slate-900">تفاصيل الحجز وصفة المستفيد</h3>
+            <section className="dga-card p-5 sm:p-6 space-y-4">
+              <h3 className="text-base font-bold text-[#1F2A37]">تفاصيل الحجز وصفة المستفيد</h3>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
-                <div className="rounded-xl bg-slate-50 border border-slate-100 p-3.5">
-                  <span className="text-xs text-slate-500 block">الوحدة المطلوبة</span>
-                  <span className="text-sm font-black text-slate-900 mt-1 block">{order.unit_name}</span>
+                <div className="rounded-[8px] bg-[#F9FAFB] border border-[#E5E7EB] p-3.5">
+                  <span className="text-xs text-[#6C737F] block">الوحدة المطلوبة</span>
+                  <span className="text-sm font-bold text-[#1F2A37] mt-1 block">{order.unit_name}</span>
                   {Number(order.unit_rate) > 1 && (
-                    <span className="text-[11px] text-slate-500">
+                    <span className="text-[11px] text-[#6C737F]">
                       المعامل: <strong className="font-mono" dir="ltr">{formatOrderAmount(order.unit_rate)}</strong>
                     </span>
                   )}
                 </div>
 
-                <div className="rounded-xl bg-slate-50 border border-slate-100 p-3.5">
-                  <span className="text-xs text-slate-500 block">الكمية المحجوزة</span>
-                  <span className="text-sm font-black text-slate-900 font-mono mt-1 block" dir="ltr">
+                <div className="rounded-[8px] bg-[#F9FAFB] border border-[#E5E7EB] p-3.5">
+                  <span className="text-xs text-[#6C737F] block">الكمية المحجوزة</span>
+                  <span className="text-sm font-bold text-[#1F2A37] font-mono mt-1 block" dir="ltr">
                     {formatOrderAmount(order.quantity)}
                   </span>
                 </div>
 
-                <div className="rounded-xl bg-slate-50 border border-slate-100 p-3.5">
-                  <span className="text-xs text-slate-500 block">سعر الوحدة</span>
-                  <span className="text-sm font-black text-slate-900 mt-1 block">
+                <div className="rounded-[8px] bg-[#F9FAFB] border border-[#E5E7EB] p-3.5">
+                  <span className="text-xs text-[#6C737F] block">سعر الوحدة</span>
+                  <span className="text-sm font-bold text-[#1F2A37] mt-1 block">
                     <span className="font-mono" dir="ltr">{formatOrderPrice(order.unit_price)}</span> ريال
                   </span>
                 </div>
 
-                <div className="rounded-xl bg-slate-50 border border-slate-100 p-3.5">
-                  <span className="text-xs text-slate-500 block">صفة المستفيد</span>
-                  <span className="text-sm font-black text-slate-900 mt-1 block">
+                <div className="rounded-[8px] bg-[#F9FAFB] border border-[#E5E7EB] p-3.5">
+                  <span className="text-xs text-[#6C737F] block">صفة المستفيد</span>
+                  <span className="text-sm font-bold text-[#1F2A37] mt-1 block">
                     {formatConsumerType(order.consumer_type)}
                   </span>
                 </div>
@@ -327,18 +327,18 @@ export default function ProviderOrderDetailsPage({
               {(order.notes || order.reason) && (
                 <div className="space-y-2.5 pt-2">
                   {order.notes && (
-                    <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-3.5 text-xs text-amber-950">
-                      <span className="font-black block mb-1">ملاحظات المستفيد للتسليم:</span>
-                      <p className="leading-relaxed whitespace-pre-wrap">{order.notes}</p>
+                    <div className="dga-callout-warning p-3.5 text-xs text-[#1F2A37]">
+                      <span className="font-semibold text-[#B54708] block mb-1">ملاحظات المستفيد للتسليم:</span>
+                      <p className="leading-6 whitespace-pre-wrap">{order.notes}</p>
                     </div>
                   )}
 
                   {order.reason && (
-                    <div className="rounded-xl border border-rose-200 bg-rose-50/70 p-3.5 text-xs text-rose-900">
-                      <span className="font-black block mb-1">
+                    <div className="rounded-[8px] border border-[#FECDCA] border-s-4 border-s-[#B42318] bg-[#FEF3F2] p-3.5 text-xs text-[#1F2A37]">
+                      <span className="font-semibold text-[#B42318] block mb-1">
                         {order.status === 'rejected' ? 'سبب الرفض المسجّل:' : 'سبب الإلغاء:'}
                       </span>
-                      <p className="leading-relaxed whitespace-pre-wrap">{order.reason}</p>
+                      <p className="leading-6 whitespace-pre-wrap">{order.reason}</p>
                     </div>
                   )}
                 </div>
@@ -347,13 +347,13 @@ export default function ProviderOrderDetailsPage({
 
             {/* 3) موقع وعنوان المستفيد للتوصيل */}
             {order.address && (
-              <section className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 shadow-xs space-y-4">
+              <section className="dga-card p-5 sm:p-6 space-y-4">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                   <div>
-                    <h3 className="text-base font-black text-slate-900">
+                    <h3 className="text-base font-bold text-[#1F2A37]">
                       عنوان التوصيل: {order.address.title || 'عنوان المستفيد'}
                     </h3>
-                    <p className="text-xs text-slate-600 mt-1">{order.address.description}</p>
+                    <p className="text-xs text-[#6C737F] mt-1">{order.address.description}</p>
                   </div>
 
                   {hasAddressCoords && (
@@ -361,9 +361,9 @@ export default function ProviderOrderDetailsPage({
                       href={`https://www.google.com/maps?q=${order.address.lat},${order.address.lng}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-bold transition self-start sm:self-center"
+                      className="inline-flex items-center gap-1.5 min-h-[38px] px-3 rounded-[4px] border border-[#D2D6DB] bg-white hover:bg-[#F3F4F6] text-[#161616] text-xs font-medium dga-btn-motion self-start sm:self-center"
                     >
-                      <Icons.Navigation className="w-3.5 h-3.5 text-mawarid-700" />
+                      <Icons.Navigation className="w-3.5 h-3.5 text-[#1B8354]" />
                       <span>التوجيه عبر خرائط Google</span>
                     </a>
                   )}
@@ -380,7 +380,7 @@ export default function ProviderOrderDetailsPage({
               </section>
             )}
 
-            <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-400 px-1">
+            <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] text-[#6C737F] px-1">
               <span>آخر تحديث: {formatOrderDateTime(order.updated_at)}</span>
               {order.transaction_id && (
                 <span className="font-mono" dir="ltr">Ref: {order.transaction_id.slice(0, 8)}</span>

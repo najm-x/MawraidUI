@@ -48,8 +48,8 @@ export default function AdminAddressesPage({ go, onSessionExpired }) {
   const addresses = Array.isArray(query.data) ? query.data : [query.data].filter(Boolean)
   return (
     <AddressPage title="عرض عناوين المواطنين" onBack={() => go(ROUTES.DASHBOARD)}>
-      <div className="grid gap-3 sm:grid-cols-2">
-        <form onSubmit={submitUser} className="rounded-2xl border border-slate-200 bg-white p-4 space-y-3" noValidate>
+      <div className="grid gap-4 sm:grid-cols-2">
+        <form onSubmit={submitUser} className="dga-card p-5 space-y-3.5" noValidate>
           <div>
             <Label htmlFor="lookup-user-id">معرّف المستخدم (UUID)</Label>
             <TextInput
@@ -62,17 +62,21 @@ export default function AdminAddressesPage({ go, onSessionExpired }) {
               aria-describedby={userIdError ? 'lookup-user-error' : undefined}
               autoComplete="off"
             />
-            {userIdError && <p id="lookup-user-error" className="mt-2 text-sm text-rose-700" role="alert">أدخل معرّف مستخدم صالحاً.</p>}
+            {userIdError && <p id="lookup-user-error" className="mt-1.5 text-xs font-medium text-[#B42318]" role="alert">أدخل معرّف مستخدم صالحاً.</p>}
           </div>
           <div className="flex flex-wrap gap-2">
             <SecondaryBtn type="submit">عرض عناوين المستخدم</SecondaryBtn>
-            <button type="submit" value="default" className="min-h-[44px] rounded-xl px-3 text-sm font-bold text-mawarid-700 hover:bg-mawarid-50">
+            <button
+              type="submit"
+              value="default"
+              className="min-h-[42px] rounded-[4px] px-3 text-sm font-medium text-[#1B8354] hover:bg-[#F3FCF6] dga-btn-motion cursor-pointer"
+            >
               عرض الافتراضي
             </button>
           </div>
         </form>
 
-        <form onSubmit={submitAddress} className="rounded-2xl border border-slate-200 bg-white p-4 space-y-3" noValidate>
+        <form onSubmit={submitAddress} className="dga-card p-5 space-y-3.5" noValidate>
           <div>
             <Label htmlFor="lookup-address-id">معرّف العنوان (UUID)</Label>
             <TextInput
@@ -85,17 +89,17 @@ export default function AdminAddressesPage({ go, onSessionExpired }) {
               aria-describedby={addressIdError ? 'lookup-address-error' : undefined}
               autoComplete="off"
             />
-            {addressIdError && <p id="lookup-address-error" className="mt-2 text-sm text-rose-700" role="alert">أدخل معرّف عنوان صالحاً.</p>}
+            {addressIdError && <p id="lookup-address-error" className="mt-1.5 text-xs font-medium text-[#B42318]" role="alert">أدخل معرّف عنوان صالحاً.</p>}
           </div>
           <SecondaryBtn type="submit">البحث عن عنوان</SecondaryBtn>
         </form>
       </div>
 
       {lookup && (
-        <section aria-labelledby="address-lookup-results" className="space-y-3">
-          <h2 id="address-lookup-results" className="text-lg font-black text-slate-900">{lookup.title}</h2>
+        <section aria-labelledby="address-lookup-results" className="space-y-3 fade-in">
+          <h2 id="address-lookup-results" className="text-lg font-bold text-[#1F2A37]">{lookup.title}</h2>
           <AddressResults query={query} emptyMessage={lookup.emptyMessage}>
-            <div className="grid gap-3">
+            <div className="grid gap-3 dga-stagger">
               {addresses.map((address) => (
                 <AddressCard key={address.id} address={address} showOwner onDetails={Array.isArray(query.data) ? findAddress : undefined} />
               ))}

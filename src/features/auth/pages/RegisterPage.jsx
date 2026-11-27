@@ -1,4 +1,4 @@
-// ═══════════ شاشتا التسجيل: عميل (multipart) + مقدم خدمة (JSON) ═══════════
+// ═══════════ شاشتا التسجيل: عميل (multipart) + مقدم خدمة (JSON) — DGA Design System ═══════════
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { authApi } from '../../../services/api'
 import { PHONE_RE } from '../../../shared/constants/regex'
@@ -7,23 +7,38 @@ import TurnstileWidget from '../components/TurnstileWidget'
 
 function CategoryCard({ selected, onToggle, icon: Icon, title, description, children }) {
   return (
-    <div className={`rounded-2xl border transition p-4 ${selected ? 'border-mawarid-600 bg-mawarid-50/40 shadow-xs' : 'border-slate-200 bg-slate-50/60 hover:bg-slate-50'}`}>
+    <div
+      className={`rounded-[16px] border transition-colors duration-150 p-4 ${
+        selected
+          ? 'border-[#1B8354] bg-[#F3FCF6]'
+          : 'border-[#E5E7EB] bg-white hover:border-[#9DA4AE]'
+      }`}
+    >
       <div className="flex items-center justify-between gap-3 cursor-pointer select-none" onClick={onToggle}>
         <div className="flex items-center gap-3">
-          <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${selected ? 'bg-mawarid-700 text-white' : 'bg-slate-200 text-slate-600'}`}>
+          <div
+            className={`w-10 h-10 rounded-[8px] flex items-center justify-center shrink-0 transition-colors ${
+              selected ? 'bg-[#1B8354] text-white' : 'bg-[#F3F4F6] text-[#384250]'
+            }`}
+          >
             <Icon className="w-5 h-5" />
           </div>
           <div className="text-right">
-            <h4 className="text-sm font-bold text-slate-900">{title}</h4>
-            <p className="text-[11px] text-slate-500">{description}</p>
+            <h4 className="text-sm font-semibold text-[#1F2A37]">{title}</h4>
+            <p className="text-xs text-[#6C737F]">{description}</p>
           </div>
         </div>
-        <div className={`w-5 h-5 rounded-md border flex items-center justify-center transition ${selected ? 'bg-mawarid-700 border-mawarid-700 text-white' : 'border-slate-300 bg-white'}`}>
+        {/* DGA Checkbox (radius-xs = 2px, control-border = #6C737F) */}
+        <div
+          className={`w-5 h-5 rounded-[2px] border flex items-center justify-center transition-colors ${
+            selected ? 'bg-[#1B8354] border-[#1B8354] text-white' : 'border-[#6C737F] bg-white'
+          }`}
+        >
           {selected && <Icons.Check className="w-3.5 h-3.5" />}
         </div>
       </div>
       {selected && children && (
-        <div className="mt-3 pt-3 border-t border-mawarid-200/60 space-y-2.5 fade-in text-right">
+        <div className="mt-3.5 pt-3.5 border-t border-[#B8EACB] space-y-2.5 fade-in text-right">
           {children}
         </div>
       )}
@@ -38,7 +53,7 @@ export function RegisterConsumer({ go }) {
   const [idNumber, setIdNumber] = useState('')
   const [file, setFile] = useState(null)
   const [isDriver, setIsDriver] = useState(false)
-  const [isHome, setIsHome] = useState(true) // القيمة الافتراضية الأكثر شيوعاً: رب أسرة
+  const [isHome, setIsHome] = useState(true)
   const [isBiz, setIsBiz] = useState(false)
   const [vehicleNumber, setVehicleNumber] = useState('')
   const [vehicleType, setVehicleType] = useState('')
@@ -103,7 +118,7 @@ export function RegisterConsumer({ go }) {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 py-8 px-4 sm:px-6 flex flex-col justify-between">
+    <div className="min-h-screen bg-[#F9FAFB] dga-canvas-grid py-8 px-4 sm:px-6 flex flex-col justify-between">
       <div className="max-w-2xl w-full mx-auto">
         <div className="flex items-center justify-between pb-6 mb-2">
           <div className="cursor-pointer" onClick={() => go('home')}>
@@ -113,20 +128,20 @@ export function RegisterConsumer({ go }) {
             <BackBtn onClick={() => go('home')} label="الرئيسية" />
             <button
               onClick={() => go('login')}
-              className="text-xs font-bold text-mawarid-700 hover:underline px-2"
+              className="text-xs font-semibold text-[#1B8354] hover:underline px-2 cursor-pointer"
             >
               تسجيل الدخول
             </button>
           </div>
         </div>
 
-        <div className="bg-white rounded-3xl border border-slate-200/90 shadow-xl p-6 sm:p-8 fade-in">
-          <div className="text-right mb-6 pb-4 border-b border-slate-100">
-            <span className="inline-block px-3 py-1 rounded-full bg-mawarid-50 text-mawarid-700 text-xs font-bold mb-2">
+        <div className="bg-white rounded-[16px] border border-[#E5E7EB] border-t-4 border-t-[#1B8354] shadow-card p-6 sm:p-8 fade-in">
+          <div className="text-right mb-6 pb-4 border-b border-[#E5E7EB]">
+            <span className="inline-block px-2.5 py-1 rounded-[4px] bg-[#F3FCF6] border border-[#B8EACB] text-[#1B8354] text-xs font-semibold mb-2.5">
               حساب مستفيد جديد
             </span>
-            <h1 className="text-2xl font-black text-slate-900">إنشاء حساب مواطن / مستفيد</h1>
-            <p className="text-xs text-slate-500 mt-1">
+            <h1 className="text-2xl font-bold text-[#1F2A37]">إنشاء حساب مواطن / مستفيد</h1>
+            <p className="text-xs sm:text-sm text-[#6C737F] mt-1.5 leading-relaxed">
               أدخل بيانات الهوية لتسجيل حصتك في توزيع الغاز المنزلي، صهاريج المياه، أو مخصصات الوقود بمدينة تعز
             </p>
           </div>
@@ -161,11 +176,13 @@ export function RegisterConsumer({ go }) {
               <button
                 type="button"
                 onClick={() => fileRef.current.click()}
-                className={`w-full min-h-[58px] rounded-xl border-2 border-dashed flex items-center justify-center gap-3 px-4 text-xs font-bold transition cursor-pointer ${
-                  file ? 'border-mawarid-600 bg-mawarid-50/60 text-mawarid-800' : 'border-slate-300 bg-slate-50 hover:bg-slate-100 text-slate-600'
+                className={`w-full min-h-[56px] rounded-[8px] border border-dashed flex items-center justify-center gap-3 px-4 text-xs font-medium transition-colors duration-150 cursor-pointer ${
+                  file
+                    ? 'border-[#1B8354] bg-[#F3FCF6] text-[#074D31]'
+                    : 'border-[#9DA4AE] bg-[#F9FAFB] hover:bg-[#F3F4F6] text-[#384250]'
                 }`}
               >
-                <Icons.Upload className="w-5 h-5 text-mawarid-700" />
+                <Icons.Upload className="w-5 h-5 text-[#1B8354]" />
                 <span className="truncate">{file ? `تم اختيار: ${file.name}` : 'اضغط لرفع صورة الهوية (JPEG / PNG / WEBP ≤ 5MB)'}</span>
               </button>
             </div>
@@ -173,7 +190,6 @@ export function RegisterConsumer({ go }) {
             <div className="pt-2">
               <Label req>صفة الاستفادة في مدينة تعز (اختر واحدة على الأقل):</Label>
               <div className="space-y-3 mt-2">
-                {/* رب أسرة */}
                 <CategoryCard
                   selected={isHome}
                   onToggle={() => setIsHome(!isHome)}
@@ -195,7 +211,6 @@ export function RegisterConsumer({ go }) {
                   </div>
                 </CategoryCard>
 
-                {/* سائق نقل */}
                 <CategoryCard
                   selected={isDriver}
                   onToggle={() => setIsDriver(!isDriver)}
@@ -203,7 +218,7 @@ export function RegisterConsumer({ go }) {
                   title="سائق مركبة نقل / أجرة (مخصصات الوقود)"
                   description="لحافلات النقل الداخلي ومركبات الأجرة بمدينة تعز"
                 >
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                       <Label req htmlFor="vNum">رقم لوحة المركبة</Label>
                       <TextInput id="vNum" placeholder="مثال: 12345 / تعز" value={vehicleNumber} onChange={setVehicleNumber} />
@@ -215,7 +230,6 @@ export function RegisterConsumer({ go }) {
                   </div>
                 </CategoryCard>
 
-                {/* نشاط تجاري */}
                 <CategoryCard
                   selected={isBiz}
                   onToggle={() => setIsBiz(!isBiz)}
@@ -244,13 +258,13 @@ export function RegisterConsumer({ go }) {
             </PrimaryBtn>
           </form>
 
-          <div className="mt-6 pt-4 border-t border-slate-100 text-center text-xs text-slate-500">
+          <div className="mt-6 pt-4 border-t border-[#E5E7EB] text-center text-xs text-[#6C737F]">
             لديك حساب مسبقاً؟{' '}
-            <button onClick={() => go('login')} className="font-bold text-mawarid-700 hover:underline cursor-pointer">
+            <button onClick={() => go('login')} className="font-semibold text-[#1B8354] hover:underline cursor-pointer">
               تسجيل الدخول
             </button>
             {' '}•{' '}
-            <button onClick={() => go('register-provider')} className="font-bold text-slate-600 hover:underline cursor-pointer">
+            <button onClick={() => go('register-provider')} className="font-semibold text-[#384250] hover:underline cursor-pointer">
               التسجيل كوكيل خدمة
             </button>
           </div>
@@ -337,7 +351,7 @@ export function RegisterProvider({ go }) {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 py-8 px-4 sm:px-6 flex flex-col justify-between">
+    <div className="min-h-screen bg-[#F9FAFB] dga-canvas-grid py-8 px-4 sm:px-6 flex flex-col justify-between">
       <div className="max-w-xl w-full mx-auto">
         <div className="flex items-center justify-between pb-6 mb-2">
           <div className="cursor-pointer" onClick={() => go('home')}>
@@ -346,13 +360,13 @@ export function RegisterProvider({ go }) {
           <BackBtn onClick={() => go('home')} label="الرئيسية" />
         </div>
 
-        <div className="bg-white rounded-3xl border border-slate-200/90 shadow-xl p-6 sm:p-8 fade-in">
-          <div className="text-right mb-6 pb-4 border-b border-slate-100">
-            <span className="inline-block px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 text-xs font-bold mb-2">
+        <div className="bg-white rounded-[16px] border border-[#E5E7EB] border-t-4 border-t-[#074D31] shadow-card p-6 sm:p-8 fade-in">
+          <div className="text-right mb-6 pb-4 border-b border-[#E5E7EB]">
+            <span className="inline-block px-2.5 py-1 rounded-[4px] bg-[#F3FCF6] border border-[#B8EACB] text-[#074D31] text-xs font-semibold mb-2.5">
               بوابة الشركاء ومقدمي الخدمة
             </span>
-            <h1 className="text-2xl font-black text-slate-900">تسجيل وكيل أو محطة توزيع معتمدة</h1>
-            <p className="text-xs text-slate-500 mt-1">
+            <h1 className="text-2xl font-bold text-[#1F2A37]">تسجيل وكيل أو محطة توزيع معتمدة</h1>
+            <p className="text-xs sm:text-sm text-[#6C737F] mt-1.5 leading-relaxed">
               لوكيل غاز، مورد مياه، أو محطة محروقات في مدينة تعز لإدارة الحصص والتسليم الموثق
             </p>
           </div>
@@ -377,7 +391,7 @@ export function RegisterProvider({ go }) {
                 value={providerTypeId}
                 onChange={(e) => setProviderTypeId(e.target.value)}
                 disabled={providerTypes.status !== 'ready'}
-                className="w-full min-h-[48px] rounded-xl border border-slate-200 bg-white px-3.5 text-slate-800 text-sm font-semibold outline-none transition shadow-sm hover:border-slate-300 focus:border-mawarid-600 focus:ring-2 focus:ring-mawarid-600/20 disabled:opacity-60 disabled:cursor-wait"
+                className="w-full min-h-[44px] rounded-[4px] border border-[#9DA4AE] bg-white px-3.5 text-[#161616] text-sm font-normal outline-none transition-colors duration-150 hover:border-[#384250] focus:border-[#1B8354] focus:ring-2 focus:ring-[#1B8354]/15 disabled:bg-[#F3F4F6] disabled:text-[#9DA4AE] disabled:cursor-wait"
               >
                 <option value="">
                   {providerTypes.status === 'loading' ? 'جارٍ تحميل أنواع مزودي الخدمة…' : 'اختر نوع مزود الخدمة'}
@@ -421,7 +435,7 @@ export function RegisterProvider({ go }) {
                 value={desc}
                 onChange={(e) => setDesc(e.target.value)}
                 rows={3}
-                className="w-full rounded-xl border border-slate-200 bg-white p-3.5 text-xs text-slate-800 outline-none focus:border-mawarid-600 focus:ring-2 focus:ring-mawarid-600/20"
+                className="w-full rounded-[4px] border border-[#9DA4AE] bg-white p-3.5 text-sm text-[#161616] placeholder:text-[#6C737F] outline-none transition-colors duration-150 hover:border-[#384250] focus:border-[#1B8354] focus:ring-2 focus:ring-[#1B8354]/15"
               />
             </div>
 
@@ -429,11 +443,11 @@ export function RegisterProvider({ go }) {
               <Label req>ساعات العمل الرسمية لاستقبال المواطنين</Label>
               <div className="grid grid-cols-2 gap-3" dir="ltr">
                 <div>
-                  <span className="block text-[11px] font-bold text-slate-500 mb-1">وقت البدء (ص)</span>
+                  <span className="block text-xs font-medium text-[#6C737F] mb-1">وقت البدء (ص)</span>
                   <TextInput type="time" value={startAt} onChange={setStartAt} className="text-center font-mono" />
                 </div>
                 <div>
-                  <span className="block text-[11px] font-bold text-slate-500 mb-1">وقت الإغلاق (م)</span>
+                  <span className="block text-xs font-medium text-[#6C737F] mb-1">وقت الإغلاق (م)</span>
                   <TextInput type="time" value={endAt} onChange={setEndAt} className="text-center font-mono" />
                 </div>
               </div>
@@ -452,9 +466,9 @@ export function RegisterProvider({ go }) {
             </PrimaryBtn>
           </form>
 
-          <div className="mt-6 pt-4 border-t border-slate-100 text-center text-xs text-slate-500">
+          <div className="mt-6 pt-4 border-t border-[#E5E7EB] text-center text-xs text-[#6C737F]">
             لديك حساب مسجل بالفعل؟{' '}
-            <button onClick={() => go('login')} className="font-bold text-mawarid-700 hover:underline cursor-pointer">
+            <button onClick={() => go('login')} className="font-semibold text-[#1B8354] hover:underline cursor-pointer">
               تسجيل الدخول
             </button>
           </div>
